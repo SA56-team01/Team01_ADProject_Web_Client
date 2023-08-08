@@ -4,9 +4,9 @@ import PixIcon from "@mui/icons-material/Pix";
 import { Box, Typography, useTheme } from "@mui/material";
 import FlexBetween from "../FlexBetween";
 
-type Props = {};
+// type Props = {};
 
-const Navbar = (props: Props) => {
+const Navbar = () => {
   // importing palette
   const { palette } = useTheme();
   const [selected, setSelected] = useState("dashboard");
@@ -27,22 +27,28 @@ const Navbar = (props: Props) => {
         {/* why am i getting an error? */}
         {/* fixed, i needed the import even though they told me i didn't. */}
         <Box sx={{ "&:hover": { color: palette.primary[100] } }}>
-          <Link to="/" onClick={() => setSelected("dashboard")} 
-          style = {{
-            color: selected ==="dashboard" ? "inherit" : palette.grey[700],
-            textDecoration: "inherit"
-          }}>
+          <Link
+            to="/"
+            onClick={() => setSelected("dashboard")}
+            style={{
+              color: selected === "dashboard" ? "inherit" : palette.grey[700],
+              textDecoration: "inherit",
+            }}
+          >
             dashboard
           </Link>
         </Box>
         {/* predictions/alt segment for the navbar */}
         <Box sx={{ "&:hover": { color: palette.primary[100] } }}>
-          <Link to="/" onClick={() => setSelected("predictions")} 
-          style = {{
-            color: selected ==="predictions" ? "inherit" : palette.grey[700],
-            textDecoration: "inherit"
-          }}>
-            predictions
+          <Link
+            to="/"
+            onClick={() => setSelected("predictions")}
+            style={{
+              color: selected === "predictions" ? "inherit" : palette.grey[700],
+              textDecoration: "inherit",
+            }}
+          >
+            feedback
           </Link>
         </Box>
       </FlexBetween>

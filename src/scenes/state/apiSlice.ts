@@ -1,47 +1,41 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "@/RootState"; // Import the RootState type
-import { GetJavaApiResponse } from "./types";
-
-interface ApiState {
-  data: {
-    [id: string]: GetJavaApiResponse;
-  };
-}
+import { ApiState } from "./types";
 
 const initialState: ApiState = {
-  data: {},
+  data: null,
 };
 
-// check what this does...
+// defines/intialises(?) the slicer
 const apiSlice = createSlice({
-  name: "api",
+  name: "data",
   initialState,
   reducers: {
-    setData: (state, action) => {
-      state.data = action.payload;
+    setData: (state, action: PayloadAction<ApiState>) => {
+      state.data = action.payload.data;
     },
   },
 });
 
 // Selector for User Data Component
-export const selectUserData = (state: RootState, id: string) => {
-  const item = state.api.data[id];
-  if (item) {
+export const selectUserData = (state: RootState) => {
+  const data = state.api.data;
+  if (data) {
     return {
-      playlist_id: item.playlist_id,
-      user_id: item.user_id,
+      playlist_id: data.playlist_id,
+      user_id: data.user_id,
     };
   }
   return null;
 };
 
 // Selector for ...
-export const selectLocationData = (state: RootState, id: string) => {
-  const item = state.api.data[id];
-  if (item) {
+export const selectLocationData = (state: RootState) => {
+  const data = state.api.data;
+  if (data) {
     return {
-      latitude_created: item.latitude_created,
-      longitude_created: item.longitude_created,
+      latitude_created: data.latitude_created,
+      longitude_created: data.longitude_created,
     };
   }
   return null;

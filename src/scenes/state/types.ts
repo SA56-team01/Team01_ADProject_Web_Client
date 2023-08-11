@@ -1,4 +1,7 @@
 // defining types
+import { WritableDraft } from "immer/dist/types/types-external.js";
+
+// response type for Api response
 export interface GetJavaApiResponse {
   playlist_id: number;
   user_id: number;
@@ -21,32 +24,11 @@ export interface GetJavaApiResponse {
   type: string; // Assuming type is a string
 }
 
-export interface ExpensesByCategory {
-  salaries: number;
-  supplies: number;
-  services: number;
+// type for Api State
+export interface ApiState {
+  data: WritableDraft<GetJavaApiResponse> | null;
 }
 
-export interface Month {
-  id: string;
-  month: string;
-  revenue: number;
-  nonOperationalExpenses: number;
-  operationalExpense: number;
-}
-
-export interface Day {
-  id: string;
-  date: string;
-}
-
-export interface GetKpisResponse {
-  id: string;
-  _id: string;
-  __v: number;
-  totalProfit: number;
-  totalRevenue: number;
-  totalExpenses: number;
-  expensesByCategory: ExpensesByCategory;
-  monthlyData: Array<Month>;
-}
+export type RootState = {
+  api: ApiState;
+};

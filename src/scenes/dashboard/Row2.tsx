@@ -1,9 +1,6 @@
 import DashboardBox from "@/components/DashboardBox";
-import React from "react";
 
-type Props = {};
-
-const Row1 = (props: Props) => {
+const Row1 = () => {
   return (
     <>
       <DashboardBox gridArea="d"></DashboardBox>

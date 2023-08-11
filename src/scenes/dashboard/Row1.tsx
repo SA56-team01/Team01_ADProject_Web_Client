@@ -9,28 +9,28 @@ import {
   Tooltip,
 } from "recharts";
 import { useTheme } from "@mui/material";
+import { selectUserData } from "../state/apiSlice";
+import { useSelector } from "react-redux";
 import { useFetchMyDataQuery } from "../state/api";
 
 const Row1 = () => {
   const { palette } = useTheme();
-  const { data, isLoading, isError } = useFetchMyDataQuery();
+  // is this redundant?
+  const { isLoading, isError } = useFetchMyDataQuery();
 
   // three slices for three components
   // organising data from API call
-  const revenueExpenses = useMemo(() => {
-    return (
-      // replace with my Slices
-      data &&
-      data[0].monthlyData.map(({ month, revenue, expenses }) => {
-        // formatting data for the chart
-        return {
-          name: month.substring(0, 3),
-          revenue: revenue,
-          expenses: expenses,
-        };
-      })
-    );
-  }, [data]);
+  const userData = useSelector(selectUserData);
+
+  const formattedData = useMemo(() => {
+    if (userData) {
+      return Object.entries(userData).map(([userId, { playlist_count }]) => ({
+        userId,
+        playlistCount: playlist_count,
+      }));
+    }
+    return [];
+  }, [userData]);
 
   // boilerplate to debug
   if (isLoading) {
@@ -51,7 +51,7 @@ const Row1 = () => {
           <AreaChart
             width={500}
             height={400}
-            data={data}
+            data={formattedData}
             margin={{
               top: 15,
               right: 25,

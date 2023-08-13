@@ -11,12 +11,9 @@ import {
 import { useTheme } from "@mui/material";
 import { selectUserData } from "../state/apiSlice";
 import { useSelector } from "react-redux";
-import { useFetchMyDataQuery } from "../state/api";
 
 const Row1 = () => {
   const { palette } = useTheme();
-  // is this redundant?
-  const { isLoading, isError } = useFetchMyDataQuery();
 
   // three slices for three components
   // organising data from API call
@@ -31,15 +28,6 @@ const Row1 = () => {
     }
     return [];
   }, [userData]);
-
-  // boilerplate to debug
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
-
-  if (isError) {
-    return <p>Error: Some Error</p>;
-  }
 
   return (
     // Why am i hiding it in an empty component?

@@ -21,7 +21,6 @@ export interface GetJavaApiResponse {
   target_tempo: number;
   target_time_signature: number;
   target_valence: number;
-  type: string; // Assuming type is a string
 }
 
 // type for Api State

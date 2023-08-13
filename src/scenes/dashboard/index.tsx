@@ -1,4 +1,5 @@
 import { Box, useMediaQuery, useTheme } from "@mui/material";
+import { useFetchMyDataQuery } from "../state/api";
 import Row1 from "./Row1";
 import Row2 from "./Row2";
 import Row3 from "./Row3";
@@ -57,6 +58,17 @@ const gridTemplateSmallScreens = `
 const Dashboard = () => {
   const isAboveMediumScreens = useMediaQuery("(min-width: 1200px)");
   const { palette } = useTheme();
+  const { isLoading, isError } = useFetchMyDataQuery();
+
+  // boilerplate to debug
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+  if (isError) {
+    return <p>Error: Some Error</p>;
+  }
+
   return (
     <Box
       width="100%"

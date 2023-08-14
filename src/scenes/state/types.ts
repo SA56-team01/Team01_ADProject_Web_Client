@@ -1,10 +1,11 @@
 // defining types
-import { WritableDraft } from "immer/dist/types/types-external.js";
 
 // response type for Api response
-export interface GetJavaApiResponse {
+export interface UserHistoryData {
   playlist_id: number;
   user_id: number;
+  spotify_playlist_id: string;
+  playlist_name: string;
   latitude_created: number;
   longitude_created: number;
   timestamp_created: string; // Assuming timestamp_created is a string
@@ -23,9 +24,27 @@ export interface GetJavaApiResponse {
   target_valence: number;
 }
 
-// type for Api State
+export interface UserData {
+  [userId: string]: UserHistoryData[];
+}
+
+// Feedback data type
+export interface FeedbackData {
+  feedback_id: number;
+  user_id: number; // Foreign Key
+  feedback_text: string;
+  fb_timestamp: string; // Assuming fb_timestamp is a string
+}
+
+// Map of user id to their feedbacks
+export interface UserFeedbackData {
+  [userId: string]: FeedbackData[];
+}
+
 export interface ApiState {
-  data: WritableDraft<GetJavaApiResponse> | null;
+  data?: UserData;
+  feedbackData?: UserFeedbackData;
+  loading: boolean;
 }
 
 export type RootState = {

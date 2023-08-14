@@ -3,7 +3,6 @@ import { useMemo } from "react";
 import { themeSettings } from "./theme";
 import { Box, CssBaseline, ThemeProvider } from "@mui/material";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { RootState } from "./RootState";
 import Navbar from "@/components/navbar";
 import Dashboard from "@/scenes/dashboard";
@@ -12,7 +11,7 @@ import LoginPage from "./scenes/login/login";
 function App() {
   const theme = useMemo(() => createTheme(themeSettings), []);
   // check if user is logged in via token
-  const isAuth = Boolean(useSelector((state: RootState) => state.auth.token));
+  // const isAuth = Boolean(useSelector((state: RootState) => state.auth.token));
 
   // return statement
   return (
@@ -27,10 +26,11 @@ function App() {
           {/* by default, route to login page */}
           {/* then for route to dashboard, check isAuth */}
           <Routes>
-            <Route path="/" element={<LoginPage />} />
+            <Route path="/" element={<Dashboard />} />
+            {/* <Route path="/" element={<LoginPage />} /> */}
             <Route
               path="/home"
-              element={isAuth ? <Dashboard /> : <Navigate to="/"></Navigate>}
+              // element={isAuth ? <Dashboard /> : <Navigate to="/"></Navigate>}
             />
             <Route path="/predictions" element={<div>prediction page</div>} />
           </Routes>

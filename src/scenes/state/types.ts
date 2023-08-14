@@ -10,23 +10,33 @@ export interface UserHistoryData {
   longitude_created: number;
   timestamp_created: string; // Assuming timestamp_created is a string
   seed_tracks: string[]; // Assuming seed_tracks is an array of strings
+  target_danceability: number;
+  target_energy: number;
+  target_loudness: number;
+  target_speechiness: number;
+  target_acousticness: number;
+  target_liveness: number;
+  target_valence: number;
+  target_tempo: number;
+}
+
+export interface UserPlaylistData {
+  playlist_id: number;
+  user_id: number;
+  latitude_created: number;
+  longitude_created: number;
+  timestamp_created: string; // Assuming timestamp_created is a string
   target_acousticness: number;
   target_danceability: number;
   target_energy: number;
-  target_instrumentalness: number;
-  target_key: number;
   target_liveness: number;
   target_loudness: number;
-  target_mode: number;
   target_speechiness: number;
-  target_tempo: number;
-  target_time_signature: number;
   target_valence: number;
+  target_tempo: number;
 }
 
-export interface UserData {
-  [userId: string]: UserHistoryData[];
-}
+export interface UserHistoryPlaylistData extends Array<UserHistoryData> {}
 
 // Feedback data type
 export interface FeedbackData {
@@ -37,12 +47,10 @@ export interface FeedbackData {
 }
 
 // Map of user id to their feedbacks
-export interface UserFeedbackData {
-  [userId: string]: FeedbackData[];
-}
+export interface UserFeedbackData extends Array<FeedbackData> {}
 
 export interface ApiState {
-  data?: UserData;
+  data?: UserHistoryPlaylistData;
   feedbackData?: UserFeedbackData;
   loading: boolean;
 }

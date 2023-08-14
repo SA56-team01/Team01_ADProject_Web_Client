@@ -3,10 +3,10 @@ import { useMemo } from "react";
 import { themeSettings } from "./theme";
 import { Box, CssBaseline, ThemeProvider } from "@mui/material";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { RootState } from "./RootState";
 import Navbar from "@/components/navbar";
 import Dashboard from "@/scenes/dashboard";
 import LoginPage from "./scenes/login/login";
+import ViewUserPlaylist from "./scenes/viewuserplaylist";
 
 function App() {
   const theme = useMemo(() => createTheme(themeSettings), []);
@@ -32,7 +32,7 @@ function App() {
               path="/home"
               // element={isAuth ? <Dashboard /> : <Navigate to="/"></Navigate>}
             />
-            <Route path="/predictions" element={<div>prediction page</div>} />
+            <Route path="/viewplaylist" element={<ViewUserPlaylist />} />
           </Routes>
         </Box>
       </ThemeProvider>

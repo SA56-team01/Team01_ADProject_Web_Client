@@ -38,17 +38,18 @@ const Navbar = () => {
             dashboard
           </Link>
         </Box>
-        {/* predictions/alt segment for the navbar */}
+        {/* playlist data/alt segment for the navbar */}
         <Box sx={{ "&:hover": { color: palette.primary[100] } }}>
           <Link
-            to="/"
-            onClick={() => setSelected("predictions")}
+            to="/viewplaylist"
+            onClick={() => setSelected("playlist data")}
             style={{
-              color: selected === "predictions" ? "inherit" : palette.grey[700],
+              color:
+                selected === "playlist data" ? "inherit" : palette.grey[700],
               textDecoration: "inherit",
             }}
           >
-            feedback
+            playlist data
           </Link>
         </Box>
       </FlexBetween>

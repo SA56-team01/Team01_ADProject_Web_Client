@@ -10,13 +10,13 @@ import {
 } from "recharts";
 import { useTheme } from "@mui/material";
 import { useSelector } from "react-redux";
-import { selectUserStats, selectIsLoading } from "../state/apiSlice";
+import { selectUserStats } from "../state/apiSlice";
 import BoxHeader from "@/components/BoxHeader";
 
 const Row1 = () => {
   const { palette } = useTheme();
 
-  const isLoading = useSelector(selectIsLoading);
+  // const isLoading = useSelector(selectIsLoading);
   const boxAStats = useSelector(selectUserStats);
   // const boxBStats = useSelector(selectUserStats);
   // const boxCStats = useSelector(selectUserStats);
@@ -25,6 +25,7 @@ const Row1 = () => {
   //   return <div>Loading...</div>;
   // }
 
+  // maximum playlist count
   const maxPlaylistCount = useMemo(() => {
     return Math.max(...boxAStats.map((userStat) => userStat.playlistCount));
   }, [boxAStats]);

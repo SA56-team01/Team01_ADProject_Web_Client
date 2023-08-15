@@ -23,11 +23,11 @@ const UserPlayListCardHeader = ({
         {icon}
         <Box width="100%">
           <Typography variant="h4" mb="-0.1rem">
-            {user_id}
+            User: {user_id}
           </Typography>
-          <Typography variant="h6">{playlist_id}</Typography>
-          <Typography variant="h6">{location}</Typography>
-          <Typography variant="h6">{timestamp}</Typography>
+          <Typography variant="h6">Playlist Id: {playlist_id}</Typography>
+          <Typography variant="h6">Location: {location}</Typography>
+          <Typography variant="h6">Timestamp: {timestamp}</Typography>
         </Box>
       </FlexBetween>
     </FlexBetween>

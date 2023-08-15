@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { useTheme } from "@mui/material";
 import {
   Radar,
   PolarGrid,
@@ -8,6 +8,7 @@ import {
   RadarChart,
 } from "recharts";
 import UserPlayListCardHeader from "./UserPlaylistCardHeader";
+import DashboardBox from "./DashboardBox";
 
 type Props = {
   user_id: number;
@@ -41,6 +42,7 @@ const UserPlayListCard = ({
   target_valence,
 }: Props) => {
   const location = `${latitude_created}, ${longitude_created}`;
+  const { palette } = useTheme();
 
   // Create an array of data points for the radar chart
   const data = [
@@ -55,10 +57,7 @@ const UserPlayListCard = ({
   ];
 
   return (
-    <Box
-      borderRadius="1rem"
-      boxShadow="0.15rem 0.2rem 0.15rem 0.1rem rgba(0, 0, 0 , .8)"
-    >
+    <DashboardBox>
       <UserPlayListCardHeader
         user_id={user_id}
         playlist_id={playlist_id}
@@ -66,20 +65,31 @@ const UserPlayListCard = ({
         timestamp={timestamp_created}
       />
       <ResponsiveContainer width="100%" height="100%">
-        <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data}>
+        <RadarChart
+          cx="50%"
+          cy="50%"
+          outerRadius="75%"
+          data={data}
+          margin={{
+            top: 15,
+            right: 25,
+            left: -10,
+            bottom: 60,
+          }}
+        >
           <PolarGrid />
           <PolarAngleAxis dataKey="track_attribute" />
           <PolarRadiusAxis />
           <Radar
-            name={"Mike"}
+            name={"User Playlist Chart"}
             dataKey="value"
-            stroke="#8884d8"
+            stroke={palette.primary[300]}
             fill={palette.primary[300]}
             fillOpacity={0.6}
           />
         </RadarChart>
       </ResponsiveContainer>
-    </Box>
+    </DashboardBox>
   );
 };
 

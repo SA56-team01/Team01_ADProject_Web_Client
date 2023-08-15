@@ -89,12 +89,35 @@ export const selectTargetUserPlaylists = (state: RootState) => {
 // };
 
 // selectUserFeedback
+export const selectUserFeedback = (state: RootState) => {
+  const feedbackData = state.api.feedbackData;
+
+  if (!feedbackData) {
+    return [];
+  }
+
+  // const filteredFeedback = feedbackData.filter((feedback) => {
+  //   // conditional search for feedbackData
+  //   // For example, if you want to filter out feedback with a rating less than 3:
+  //   return feedback.rating >= 3;
+  // });
+
+  return feedbackData;
+};
 
 // selectUserGrowth
 
 // selectUserPlaylistGeneratedLocations
 
-// selectUserPlaylistGeneratedTimeOfDay
+// selectUserPlaylistTimestamps
+export const selectPlaylistTimestamps = (state: RootState): string[] => {
+  const userData = selectUserData(state);
+  if (!userData) {
+    return [];
+  }
+
+  return userData.map((playlist) => playlist.timestamp_created);
+};
 
 // Filter function
 // selectUser1Playlist

@@ -4,7 +4,7 @@ import Row1 from "./Row1";
 import Row2 from "./Row2";
 import { useEffect } from "react";
 import { mockUserData } from "./mockdata/mockdata";
-import { setUserData } from "../state/apiSlice";
+import { setFeedbackData, setUserData } from "../state/apiSlice";
 import { useDispatch } from "react-redux";
 
 // type Props = {};
@@ -54,6 +54,13 @@ const Dashboard = () => {
   useEffect(() => {
     if (mockUserData.data) {
       dispatch(setUserData(mockUserData.data));
+    }
+  }, [dispatch]);
+
+  // useEffect here to fetch user playlist data
+  useEffect(() => {
+    if (mockUserData.feedbackData) {
+      dispatch(setFeedbackData(mockUserData.feedbackData));
     }
   }, [dispatch]);
 

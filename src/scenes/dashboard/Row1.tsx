@@ -10,7 +10,7 @@ import {
 } from "recharts";
 import { useTheme } from "@mui/material";
 import { useSelector } from "react-redux";
-import { selectUserStats } from "../state/apiSlice";
+import { selectUserStats, selectPlaylistTimestamps } from "../state/apiSlice";
 import BoxHeader from "@/components/BoxHeader";
 
 const Row1 = () => {
@@ -19,7 +19,7 @@ const Row1 = () => {
   // const isLoading = useSelector(selectIsLoading);
   const boxAStats = useSelector(selectUserStats);
   // const boxBStats = useSelector(selectUserStats);
-  // const boxCStats = useSelector(selectUserStats);
+  const boxCStats = useSelector(selectPlaylistTimestamps);
 
   // if (isLoading) {
   //   return <div>Loading...</div>;
@@ -52,14 +52,25 @@ const Row1 = () => {
   //   [boxBStats]
   // );
 
-  // const boxCChartData = useMemo(
-  //   () =>
-  //     boxCStats.map((userStat) => ({
-  //       userId: userStat.userId,
-  //       PlaylistCount: userStat.playlistCount,
-  //     })),
-  //   [boxCStats]
-  // );
+  // Preprocess the data for Chart C purposes
+  // Extracts the hour from the ISO datetime string
+  function extractHour(dateString: string) {
+    const date = new Date(dateString);
+    return date.getHours();
+  }
+
+  function preprocessData(timestamps: string[]) {
+    const hours = Array(24)
+      .fill(0)
+      .map((_, idx) => ({ hour: idx, count: 0 }));
+    timestamps.forEach((timestamp) => {
+      const hour = extractHour(timestamp);
+      hours[hour].count += 1;
+    });
+    return hours;
+  }
+
+  const boxCChartData = preprocessData(boxCStats);
 
   return (
     // Why am i hiding it in an empty component?
@@ -157,6 +168,52 @@ const Row1 = () => {
           subtitle="Playlist distribution number by time of day"
           sideText="+4%"
         />
+        <ResponsiveContainer>
+          <AreaChart
+            width={500}
+            height={400}
+            data={boxCChartData}
+            margin={{
+              top: 15,
+              right: 25,
+              left: -10,
+              bottom: 60,
+            }}
+          >
+            <defs>
+              {/* for the gradient for colorRevenue specifically */}
+              <linearGradient id="colorFirstGraph" x1="0" y1="0" x2="0" y2="1">
+                <stop
+                  offset="5%"
+                  stopColor={palette.primary[300]}
+                  stopOpacity={0.5}
+                />
+                <stop
+                  offset="45%"
+                  stopColor={palette.primary[300]}
+                  stopOpacity={0}
+                />
+              </linearGradient>
+            </defs>
+            <XAxis dataKey="hour" />
+            <YAxis
+              tickLine={false}
+              axisLine={{ strokeWidth: "0" }}
+              style={{ fontSize: "10px" }}
+              // REMEMBER TO EDIT
+              // setting the range
+              domain={[0, 2]}
+            />
+            <Tooltip />
+            <Area
+              type="monotone"
+              dataKey="count"
+              stroke={palette.primary.main}
+              fillOpacity={1}
+              fill="url(#colorFirstGraph)"
+            />
+          </AreaChart>
+        </ResponsiveContainer>
       </DashboardBox>
     </>
   );

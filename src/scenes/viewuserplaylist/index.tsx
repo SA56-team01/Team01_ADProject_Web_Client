@@ -46,7 +46,7 @@ const ViewUserPlaylist = () => {
         isAboveMediumScreens
           ? {
               gridTemplateColumns: "repeat(3, minmax(370px, 1fr))",
-              gridTemplateRows: "repeat(3, minmax(60px, 1fr))",
+              gridTemplateRows: "repeat(2, minmax(60px, 1fr))",
               gridTemplateAreas: gridTemplateLargeScreens,
             }
           : {

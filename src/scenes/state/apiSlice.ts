@@ -62,7 +62,7 @@ export const selectTargetUserPlaylists = (state: RootState) => {
     return [];
   }
 
-  const targetUserId = 1;
+  const targetUserId = 6;
   const targetUserPlaylists = userData.filter(
     (playlist) => playlist.user_id === targetUserId
   );

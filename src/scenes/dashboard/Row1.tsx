@@ -164,8 +164,8 @@ const Row1 = () => {
       {/* Box C */}
       <DashboardBox gridArea="c">
         <BoxHeader
-          title="Playlist at Time of Day"
-          subtitle="Playlist distribution number by time of day"
+          title="Playlist Generation Time"
+          subtitle="Distribution of times that user generated playlists"
           sideText="+4%"
         />
         <ResponsiveContainer>

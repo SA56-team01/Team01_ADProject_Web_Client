@@ -16,12 +16,17 @@ const Row2 = () => {
     {
       field: "user_id",
       headerName: "User Id",
-      flex: 0.15,
+      flex: 0.1,
     },
     {
       field: "feedback_text",
       headerName: "Feedback",
-      flex: 0.5,
+      flex: 0.4,
+    },
+    {
+      field: "fb_timestamp",
+      headerName: "Timestamp",
+      flex: 0.1,
     },
   ];
 
@@ -36,7 +41,7 @@ const Row2 = () => {
         <Box
           mt="0.5 rem"
           p="0 0.5rem"
-          height="75%"
+          height="85%"
           sx={{
             "& .MuiDataGrid-root": {
               color: palette.grey[300],

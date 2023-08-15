@@ -8,8 +8,8 @@ import { UserHistoryData } from "../state/types";
 
 // manually set "grid" representing rows for layout (non-responsive)
 const gridTemplateLargeScreens = `
-  "a b c"
-  "d e f"
+  "a b c d"
+  "e f g h"
 `;
 
 // responsive layout
@@ -45,13 +45,13 @@ const ViewUserPlaylist = () => {
       sx={
         isAboveMediumScreens
           ? {
-              gridTemplateColumns: "repeat(3, minmax(370px, 1fr))",
-              gridTemplateRows: "repeat(2, minmax(60px, 1fr))",
+              gridTemplateColumns: "repeat(4, minmax(370px, 1fr))",
+              gridTemplateRows: "repeat(2, minmax(200px, 1fr))",
               gridTemplateAreas: gridTemplateLargeScreens,
             }
           : {
               gridAutoColumns: "1fr",
-              gridAutoRows: "80px",
+              gridAutoRows: "minmax(auto, 1fr)",
               gridTemplateAreas: gridTemplateSmallScreens,
             }
       }

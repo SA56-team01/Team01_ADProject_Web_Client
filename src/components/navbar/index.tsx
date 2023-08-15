@@ -24,8 +24,6 @@ const Navbar = () => {
 
       {/* RIGHT SIDE */}
       <FlexBetween gap="2rem">
-        {/* why am i getting an error? */}
-        {/* fixed, i needed the import even though they told me i didn't. */}
         <Box sx={{ "&:hover": { color: palette.primary[100] } }}>
           <Link
             to="/"
@@ -50,6 +48,18 @@ const Navbar = () => {
             }}
           >
             playlist data
+          </Link>
+        </Box>
+        <Box sx={{ "&:hover": { color: palette.primary[100] } }}>
+          <Link
+            to="/login"
+            onClick={() => setSelected("logout")}
+            style={{
+              color: selected === "logout" ? "inherit" : palette.grey[700],
+              textDecoration: "inherit",
+            }}
+          >
+            logout
           </Link>
         </Box>
       </FlexBetween>

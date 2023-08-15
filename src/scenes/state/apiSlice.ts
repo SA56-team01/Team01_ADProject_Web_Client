@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "@/RootState"; // Import the RootState type
 import { ApiState, UserFeedbackData, UserHistoryPlaylistData } from "./types";
+import { createSelector } from "reselect";
 
 const initialState: ApiState = {
   data: [], // Update to use an empty array for data
@@ -29,8 +30,7 @@ const apiSlice = createSlice({
 export const selectUserData = (state: RootState) => state.api.data;
 
 // selectUserPlaylistCountStats
-export const selectUserStats = (state: RootState) => {
-  const userData = selectUserData(state);
+export const selectUserStats = createSelector([selectUserData], (userData) => {
   if (!userData) {
     return [];
   }
@@ -38,7 +38,7 @@ export const selectUserStats = (state: RootState) => {
   const userStatsMap: Record<string, number> = {};
 
   userData.forEach((playlist) => {
-    const userId = playlist.user_id.toString(); // Convert to string since userId is a number
+    const userId = playlist.user_id.toString();
     if (!userStatsMap[userId]) {
       userStatsMap[userId] = 0;
     }
@@ -51,41 +51,33 @@ export const selectUserStats = (state: RootState) => {
   }));
 
   return userStats;
-};
+});
 
 // selectTargetUserPlaylistAttributes
 // testing with hardcoding user1 first
-export const selectTargetUserPlaylists = (state: RootState) => {
-  const userData = selectUserData(state);
+export const selectTargetUserPlaylists = createSelector(
+  [selectUserData], // The input selector
+  (userData) => {
+    // The result function
+    if (!userData) {
+      return [];
+    }
 
-  if (!userData) {
-    return [];
+    const targetUserId = 6;
+    return userData.filter((playlist) => playlist.user_id === targetUserId);
   }
-
-  const targetUserId = 6;
-  const targetUserPlaylists = userData.filter(
-    (playlist) => playlist.user_id === targetUserId
-  );
-
-  return targetUserPlaylists;
-};
+);
 
 // uncomment when search function is done
-// export const selectTargetUserPlaylists = (
-//   state: RootState,
-//   targetUserId: number
-// ) => {
-//   const userData = selectUserData(state);
+// import { createSelector } from "reselect";
 
-//   if (!userData) {
-//     return [];
-//   }
-
-//   const targetUserPlaylists = userData.filter(
-//     (playlist) => playlist.user_id === targetUserId
-//   );
-
-//   return targetUserPlaylists;
+// const makeSelectTargetUserPlaylists = () => {
+//   return createSelector([selectUserData], (userData, targetUserId) => {
+//     if (!userData) {
+//       return [];
+//     }
+//     return userData.filter((playlist) => playlist.user_id === targetUserId);
+//   });
 // };
 
 // selectUserFeedback
@@ -110,14 +102,16 @@ export const selectUserFeedback = (state: RootState) => {
 // selectUserPlaylistGeneratedLocations
 
 // selectUserPlaylistTimestamps
-export const selectPlaylistTimestamps = (state: RootState): string[] => {
-  const userData = selectUserData(state);
-  if (!userData) {
-    return [];
+export const selectPlaylistTimestamps = createSelector(
+  [selectUserData], // The input selector
+  (userData) => {
+    // The result function
+    if (!userData) {
+      return [];
+    }
+    return userData.map((playlist) => playlist.timestamp_created);
   }
-
-  return userData.map((playlist) => playlist.timestamp_created);
-};
+);
 
 // Filter function
 // selectUser1Playlist

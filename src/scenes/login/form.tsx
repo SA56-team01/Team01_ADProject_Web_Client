@@ -7,11 +7,11 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { Formik } from "formik";
-import * as yup from "yup";
+import { Formik, FormikHelpers } from "formik";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { setLogin } from "../state/authSlice";
+import * as yup from "yup";
 
 const loginSchema = yup.object().shape({
   username: yup.string().required("required"),
@@ -25,7 +25,7 @@ const initialValuesLogin = {
 
 // refactor form code to remove feedback
 const Form = () => {
-  const [pageType, setPageType] = useState("login");
+  const [pageType] = useState("login");
   const { palette } = useTheme();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -35,7 +35,7 @@ const Form = () => {
 
   const login = async (
     values: typeof initialValuesLogin,
-    onSubmitProps: any
+    onSubmitProps: FormikHelpers<typeof initialValuesLogin>
   ) => {
     // call to backend to check user login credentials, amend depending on endpoint
     const loggedInResponse = await fetch("http://localhost:3000/auth/login", {
@@ -59,7 +59,7 @@ const Form = () => {
 
   const handleFormSubmit = async (
     values: typeof initialValuesLogin,
-    onSubmitProps: any
+    onSubmitProps: FormikHelpers<typeof initialValuesLogin>
   ) => {
     if (isLogin) await login(values, onSubmitProps);
   };
@@ -98,7 +98,15 @@ const Form = () => {
                   name="username"
                   error={Boolean(touched.username) && Boolean(errors.username)}
                   helperText={touched.username && errors.username}
-                  sx={{ gridColumn: "span 2" }}
+                  sx={{
+                    gridColumn: "span 2",
+                    "& label": {
+                      color: palette.primary[100], // changes label color
+                    },
+                    "& .MuiInputBase-input": {
+                      color: palette.primary[100], // changes input text color
+                    },
+                  }}
                 />
                 <TextField
                   label="Password"
@@ -108,7 +116,15 @@ const Form = () => {
                   name="password"
                   error={Boolean(touched.password) && Boolean(errors.password)}
                   helperText={touched.password && errors.password}
-                  sx={{ gridColumn: "span 2" }}
+                  sx={{
+                    gridColumn: "span 2",
+                    "& label": {
+                      color: palette.primary[100], // changes label color
+                    },
+                    "& .MuiInputBase-input": {
+                      color: palette.primary[100], // changes input text color
+                    },
+                  }}
                 />
               </>
             )}
@@ -125,17 +141,21 @@ const Form = () => {
                 color: palette.background.default,
                 "&:hover": { color: palette.primary.main },
               }}
-            ></Button>
-            <Typography
-              sx={{
-                textDecoration: "underline",
-                color: palette.primary.main,
-                "&:hover": {
-                  cursor: "pointer",
-                  color: palette.primary.light,
-                },
-              }}
-            ></Typography>
+            >
+              {" "}
+              <Typography
+                sx={{
+                  textDecoration: "underline",
+                  color: palette.primary.main,
+                  "&:hover": {
+                    cursor: "pointer",
+                    color: palette.primary.light,
+                  },
+                }}
+              >
+                Login
+              </Typography>
+            </Button>
           </Box>
         </form>
       )}

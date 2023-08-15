@@ -17,7 +17,7 @@ const Navbar = () => {
       <FlexBetween gap="0.75rem">
         {/* ICON HERE, fontSize = set icon size */}
         <PixIcon sx={{ fontSize: "28px" }} />
-        <Typography variant="h4" fontSize="16px">
+        <Typography variant="h4" fontSize="18px" color={palette.primary[500]}>
           Spotify Playlistener
         </Typography>
       </FlexBetween>

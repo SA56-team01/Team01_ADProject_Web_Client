@@ -69,7 +69,6 @@ export const selectTargetUserPlaylists = createSelector(
 );
 
 // uncomment when search function is done
-// import { createSelector } from "reselect";
 
 // const makeSelectTargetUserPlaylists = () => {
 //   return createSelector([selectUserData], (userData, targetUserId) => {

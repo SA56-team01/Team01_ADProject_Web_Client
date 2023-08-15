@@ -4,21 +4,9 @@ import Form from "./form";
 const LoginPage = () => {
   const { palette } = useTheme();
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
-  console.log(palette);
 
   return (
     <Box>
-      <Box
-        sx={{
-          width: "100%",
-          backgroundColor: palette.primary.light,
-          p: "1rem 6%",
-          textAlign: "center",
-        }}
-      ></Box>
-      <Typography fontWeight="bold" fontSize="32px" color="primary">
-        Spotify Playlistener
-      </Typography>
       <Box
         sx={{
           width: isNonMobileScreens ? "50%" : "93%",
@@ -28,8 +16,20 @@ const LoginPage = () => {
           backgroundColor: "#2d2d34",
         }}
       >
-        <Typography fontWeight="500" variant="h5" sx={{ mb: "1.5rem" }}>
-          Welcome to Spotify Playlistener!
+        <Typography
+          fontWeight="bold"
+          fontSize="32px"
+          color="primary"
+          sx={{ mb: "0.75rem" }}
+        >
+          Welcome Admin
+        </Typography>
+        <Typography
+          fontWeight="500"
+          variant="h4"
+          sx={{ mb: "1.5rem", color: palette.primary[100] }}
+        >
+          Spotify Playlistener: Generating Data-Driven Playlists Since 2023.
         </Typography>
         <Form />
       </Box>

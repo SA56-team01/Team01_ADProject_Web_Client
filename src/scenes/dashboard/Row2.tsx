@@ -4,6 +4,7 @@ import { Box, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { useSelector } from "react-redux";
 import { selectUserFeedback } from "../state/apiSlice";
+import UserPlaylistDotMap from "./DotMap";
 
 const Row2 = () => {
   const { palette } = useTheme();
@@ -14,8 +15,8 @@ const Row2 = () => {
 
   const feedbackColumns = [
     {
-      field: "user_id",
-      headerName: "User Id",
+      field: "feedback_id",
+      headerName: "Feedback Id",
       flex: 0.1,
     },
     {
@@ -60,10 +61,9 @@ const Row2 = () => {
         >
           <DataGrid
             columnHeaderHeight={25}
-            rowHeight={35}
+            getRowHeight={() => "auto"}
             hideFooter={true}
             rows={boxEStats || []}
-            // rows={[]}
             columns={feedbackColumns}
           />
         </Box>
@@ -74,6 +74,9 @@ const Row2 = () => {
           subtitle="Playlists Generated in Singapore by Location"
           sideText="+4%"
         />
+        <Box>
+          <UserPlaylistDotMap />
+        </Box>
       </DashboardBox>
     </>
   );

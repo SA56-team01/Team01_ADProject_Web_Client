@@ -7,10 +7,16 @@ import {
   YAxis,
   Area,
   Tooltip,
+  BarChart,
+  Bar,
 } from "recharts";
 import { useTheme } from "@mui/material";
 import { useSelector } from "react-redux";
-import { selectUserStats, selectPlaylistTimestamps } from "../state/apiSlice";
+import {
+  selectUserStats,
+  selectPlaylistTimestamps,
+  selectPlaylistGeneratedInLastYear,
+} from "../state/apiSlice";
 import BoxHeader from "@/components/BoxHeader";
 
 const Row1 = () => {
@@ -18,7 +24,7 @@ const Row1 = () => {
 
   // const isLoading = useSelector(selectIsLoading);
   const boxAStats = useSelector(selectUserStats);
-  // const boxBStats = useSelector(selectUserStats);
+  const boxBStats = useSelector(selectPlaylistGeneratedInLastYear);
   const boxCStats = useSelector(selectPlaylistTimestamps);
 
   // if (isLoading) {
@@ -42,15 +48,29 @@ const Row1 = () => {
     [boxAStats]
   );
 
-  // memos for
-  // const boxBChartData = useMemo(
-  //   () =>
-  //     boxBStats.map((userStat) => ({
-  //       userId: userStat.userId,
-  //       PlaylistCount: userStat.playlistCount,
-  //     })),
-  //   [boxBStats]
-  // );
+  // boxBChartData preprocessing
+  const currentDate = new Date();
+  const startMonth = currentDate.getMonth();
+  const startYear = currentDate.getFullYear() - 1; // Subtract 1 to go back a year
+
+  const monthlyData = Array.from({ length: 12 }, (_, i) => {
+    const monthDate = new Date(startYear, startMonth + i, 1);
+    return {
+      month: `${new Intl.DateTimeFormat("en-US", { month: "short" }).format(
+        monthDate
+      )}-${monthDate.getFullYear().toString().slice(-2)}`,
+      count: 0,
+    };
+  });
+
+  boxBStats.forEach((playlist) => {
+    const date = new Date(playlist.timestamp_created);
+    const diffMonth =
+      date.getMonth() + date.getFullYear() * 12 - (startMonth + 12 * startYear);
+    if (diffMonth >= 0 && diffMonth < 12) {
+      monthlyData[diffMonth].count += 1;
+    }
+  });
 
   // Preprocess the data for Chart C purposes
   // Extracts the hour from the ISO datetime string
@@ -156,10 +176,44 @@ const Row1 = () => {
       {/* Box B */}
       <DashboardBox gridArea="b">
         <BoxHeader
-          title="User Growth"
-          subtitle="Users per Month"
+          title="12-Month Playlist Generation Snapshot"
+          subtitle="Monthly Trends in Playlist Creation Over the Last Year"
           sideText="+4%"
         />
+        <ResponsiveContainer>
+          <BarChart
+            width={500}
+            height={300}
+            data={monthlyData}
+            margin={{
+              top: 15,
+              right: 25,
+              left: -10,
+              bottom: 60,
+            }}
+          >
+            {" "}
+            <defs>
+              {/* for the gradient for colorRevenue specifically */}
+              <linearGradient id="colorFirstGraph" x1="0" y1="0" x2="0" y2="1">
+                <stop
+                  offset="5%"
+                  stopColor={palette.primary[300]}
+                  stopOpacity={0.5}
+                />
+                <stop
+                  offset="95%"
+                  stopColor={palette.primary[300]}
+                  stopOpacity={0}
+                />
+              </linearGradient>
+            </defs>
+            <XAxis dataKey="month" />
+            <YAxis />
+            <Tooltip />
+            <Bar dataKey="count" fill="url(#colorFirstGraph)" />
+          </BarChart>
+        </ResponsiveContainer>
       </DashboardBox>
       {/* Box C */}
       <DashboardBox gridArea="c">

@@ -6,10 +6,18 @@ const LoginPage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
 
   return (
-    <Box>
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center", // horizontally center
+        alignItems: "center", // vertically center
+        height: "100%", // take full viewport height
+        width: "100%", // take full viewport width
+      }}
+    >
       <Box
         sx={{
-          width: isNonMobileScreens ? "50%" : "93%",
+          width: isNonMobileScreens ? "40%" : "93%",
           p: "2rem",
           m: "2rem auto",
           borderRadius: "1.5rem",

@@ -89,14 +89,35 @@ export const selectUserFeedback = (state: RootState) => {
 
   // const filteredFeedback = feedbackData.filter((feedback) => {
   //   // conditional search for feedbackData
-  //   // For example, if you want to filter out feedback with a rating less than 3:
+  //   // if you want to filter out feedback with a rating less than 3:
   //   return feedback.rating >= 3;
   // });
 
   return feedbackData;
 };
 
-// selectUserGrowth
+// selectPlaylistGeneratedInLastYear
+// selectPlaylistGeneratedInLastYear
+export const selectPlaylistGeneratedInLastYear = createSelector(
+  [selectUserData], // The input selector
+  (userData) => {
+    // The result function
+    if (!userData) {
+      return [];
+    }
+
+    const oneYearAgo = new Date();
+    oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+
+    return userData.filter((playlist) => {
+      // Convert the timestamp to a Date object for comparison
+      const playlistDate = new Date(playlist.timestamp_created);
+
+      // Return true if the playlist's creation date is after the oneYearAgo date
+      return playlistDate > oneYearAgo;
+    });
+  }
+);
 
 // selectUserPlaylistGeneratedLocations
 

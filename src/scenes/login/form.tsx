@@ -12,6 +12,7 @@ import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { setLogin } from "../state/authSlice";
 import * as yup from "yup";
+import.meta.env.VITE_JAVA_API_URL;
 
 const loginSchema = yup.object().shape({
   username: yup.string().required("required"),
@@ -37,23 +38,36 @@ const Form = () => {
     values: typeof initialValuesLogin,
     onSubmitProps: FormikHelpers<typeof initialValuesLogin>
   ) => {
+    console.log("sending GET request to API");
     // call to backend to check user login credentials, amend depending on endpoint
-    const loggedInResponse = await fetch("http://localhost:3000/auth/login", {
-      method: "POST",
+    const url = new URL(`${import.meta.env.VITE_JAVA_API_URL}/api/admin/auth`);
+    url.searchParams.append("admin_id", values.username);
+    url.searchParams.append("password", values.password);
+
+    const loggedInResponse = await fetch(url.toString(), {
+      method: "GET",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values),
     });
+
     const loggedIn = await loggedInResponse.json();
-    onSubmitProps.resetForm();
-    if (loggedIn) {
+
+    console.log(loggedIn.message);
+    if (loggedIn.message === "Login successful.") {
+      // Check if we're in a development environment and if the token is missing
+      if (import.meta.env.VITE_ENV === "development") {
+        loggedIn.token = "MOCK_TOKEN";
+      }
+
       dispatch(
         setLogin({
-          user: loggedIn.user,
-          // need backend to send me a token?
+          user: loggedIn.user, // Note: You should also send user details and token from backend in the response.
           token: loggedIn.token,
         })
       );
-      navigate("/home");
+
+      onSubmitProps.resetForm();
+
+      navigate("/dashboard");
     }
   };
 
@@ -106,10 +120,15 @@ const Form = () => {
                     "& .MuiInputBase-input": {
                       color: palette.primary[100], // changes input text color
                     },
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": { borderColor: palette.primary[100] }, // changes default border color
+                      "&:hover fieldset": { borderColor: palette.primary[500] }, // Border color when hovered
+                    },
                   }}
                 />
                 <TextField
                   label="Password"
+                  type="password"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   value={values.password}
@@ -123,6 +142,10 @@ const Form = () => {
                     },
                     "& .MuiInputBase-input": {
                       color: palette.primary[100], // changes input text color
+                    },
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": { borderColor: palette.primary[100] }, // changes default border color
+                      "&:hover fieldset": { borderColor: palette.primary[500] }, // Border color when hovered
                     },
                   }}
                 />
@@ -146,10 +169,10 @@ const Form = () => {
               <Typography
                 sx={{
                   textDecoration: "underline",
-                  color: palette.primary.main,
+                  color: palette.primary[100],
                   "&:hover": {
                     cursor: "pointer",
-                    color: palette.primary.light,
+                    color: palette.primary[100],
                   },
                 }}
               >

@@ -7,11 +7,13 @@ import Navbar from "@/components/navbar";
 import Dashboard from "@/scenes/dashboard";
 import LoginPage from "./scenes/login/login";
 import ViewUserPlaylist from "./scenes/viewuserplaylist";
+import { useSelector } from "react-redux";
+import { RootState } from "./RootState";
 
 function App() {
   const theme = useMemo(() => createTheme(themeSettings), []);
   // check if user is logged in via token
-  // const isAuth = Boolean(useSelector((state: RootState) => state.auth.token));
+  const isAuth = Boolean(useSelector((state: RootState) => state.auth.token));
 
   // return statement
   return (
@@ -26,11 +28,10 @@ function App() {
           {/* by default, route to login page */}
           {/* then for route to dashboard, check isAuth */}
           <Routes>
-            <Route path="/" element={<Dashboard />} />
-            {/* <Route path="/" element={<LoginPage />} /> */}
+            <Route path="/" element={<LoginPage />} />
             <Route
-              path="/home"
-              // element={isAuth ? <Dashboard /> : <Navigate to="/"></Navigate>}
+              path="/dashboard"
+              element={isAuth ? <Dashboard /> : <Navigate to="/"></Navigate>}
             />
             <Route path="/viewplaylist" element={<ViewUserPlaylist />} />
             <Route path="/login" element={<LoginPage />} />

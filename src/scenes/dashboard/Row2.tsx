@@ -4,7 +4,7 @@ import { Box, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { useSelector } from "react-redux";
 import { selectUserFeedback } from "../state/apiSlice";
-import UserPlaylistDotMap from "./DotMap";
+import SingaporePlaylistDotMap from "../dotMap/DotMap";
 
 const Row2 = () => {
   const { palette } = useTheme();
@@ -69,14 +69,7 @@ const Row2 = () => {
         </Box>
       </DashboardBox>
       <DashboardBox gridArea="e">
-        <BoxHeader
-          title="Map of Playlists Generated"
-          subtitle="Playlists Generated in Singapore by Location"
-          sideText="+4%"
-        />
-        <Box>
-          <UserPlaylistDotMap />
-        </Box>
+        <SingaporePlaylistDotMap />
       </DashboardBox>
     </>
   );

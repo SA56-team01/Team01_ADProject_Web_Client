@@ -33,7 +33,12 @@ function App() {
               path="/dashboard"
               element={isAuth ? <Dashboard /> : <Navigate to="/"></Navigate>}
             />
-            <Route path="/viewplaylist" element={<ViewUserPlaylist />} />
+            <Route
+              path="/viewplaylist"
+              element={
+                isAuth ? <ViewUserPlaylist /> : <Navigate to="/"></Navigate>
+              }
+            />
             <Route path="/login" element={<LoginPage />} />
           </Routes>
         </Box>

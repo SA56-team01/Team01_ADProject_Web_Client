@@ -18,18 +18,18 @@ import {
   selectPlaylistGeneratedInLastYear,
 } from "../state/apiSlice";
 import BoxHeader from "@/components/BoxHeader";
+import { UserHistoryData } from "../state/types";
 
 const Row1 = () => {
   const { palette } = useTheme();
 
   // const isLoading = useSelector(selectIsLoading);
   const boxAStats = useSelector(selectUserStats);
+  // console.log("boxAStats = " + boxAStats);
   const boxBStats = useSelector(selectPlaylistGeneratedInLastYear);
+  // console.log("boxBStats = " + boxAStats);
   const boxCStats = useSelector(selectPlaylistTimestamps);
-
-  // if (isLoading) {
-  //   return <div>Loading...</div>;
-  // }
+  // console.log("boxCStats = " + boxAStats);
 
   // maximum playlist count
   const maxPlaylistCount = useMemo(() => {
@@ -63,7 +63,7 @@ const Row1 = () => {
     };
   });
 
-  boxBStats.forEach((playlist) => {
+  boxBStats.forEach((playlist: UserHistoryData) => {
     const date = new Date(playlist.timestamp_created);
     const diffMonth =
       date.getMonth() + date.getFullYear() * 12 - (startMonth + 12 * startYear);

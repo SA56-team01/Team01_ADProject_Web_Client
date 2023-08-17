@@ -1,18 +1,27 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { UserHistoryData } from "./types";
+import { UserFeedbackData, UserHistoryPlaylistData } from "./types";
 
 // need to FIX, think about the logic for this
+console.log("VITE_JAVA_API_URL in api.ts:", import.meta.env.VITE_JAVA_API_URL);
 
 // redux "hook" that handles my primary api call to get user data from java backend
 export const api = createApi({
   reducerPath: "api",
-  // adjust baseUrl after cloud deployment
-  baseQuery: fetchBaseQuery({ baseUrl: `${import.meta.env.VITE_BASE_URL}` }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: `${import.meta.env.VITE_JAVA_API_URL}`,
+  }),
   endpoints: (builder) => ({
-    fetchMyData: builder.query<UserHistoryData, void>({
-      query: () => "user-data", // Adjust the endpoint path as needed depending on Ariel and Christine
+    // Fetch user history data
+    fetchUserHistoryData: builder.query<UserHistoryPlaylistData, void>({
+      query: () => "/api/playlists/all", // adjust this endpoint path as needed
+    }),
+    // Fetch feedback data
+    fetchFeedbackData: builder.query<UserFeedbackData, void>({
+      query: () => "/api/feedback/data", // adjust this endpoint path as needed
     }),
   }),
 });
 
-export const { useFetchMyDataQuery } = api;
+// Now you can use both hooks in your components:
+export const { useFetchUserHistoryDataQuery, useFetchFeedbackDataQuery } = api;
+export const { reducer: apiReducer } = api;

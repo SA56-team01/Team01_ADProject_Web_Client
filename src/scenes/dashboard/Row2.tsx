@@ -10,22 +10,22 @@ const Row2 = () => {
   const { palette } = useTheme();
   const boxEStats = useSelector(selectUserFeedback).map((feedback) => ({
     ...feedback,
-    id: feedback.feedback_id,
+    id: feedback.id,
   }));
 
   const feedbackColumns = [
     {
-      field: "feedback_id",
+      field: "id",
       headerName: "Feedback Id",
       flex: 0.1,
     },
     {
-      field: "feedback_text",
+      field: "feedbackText",
       headerName: "Feedback",
       flex: 0.4,
     },
     {
-      field: "fb_timestamp",
+      field: "fbTimestamp",
       headerName: "Timestamp",
       flex: 0.1,
     },

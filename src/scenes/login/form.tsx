@@ -38,10 +38,9 @@ const Form = () => {
     values: typeof initialValuesLogin,
     onSubmitProps: FormikHelpers<typeof initialValuesLogin>
   ) => {
-    console.log("sending GET request to API");
     // call to backend to check user login credentials, amend depending on endpoint
     const url = new URL(`${import.meta.env.VITE_JAVA_API_URL}/api/admin/auth`);
-    url.searchParams.append("admin_id", values.username);
+    url.searchParams.append("username", values.username);
     url.searchParams.append("password", values.password);
 
     const loggedInResponse = await fetch(url.toString(), {

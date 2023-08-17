@@ -2,9 +2,10 @@ import { Box, useMediaQuery } from "@mui/material";
 import Row1 from "./Row1";
 import Row2 from "./Row2";
 import { useEffect } from "react";
-import { mockUserData } from "./mockdata/mockdata";
-import { setFeedbackData, setUserData } from "../state/apiSlice";
-import { useDispatch } from "react-redux";
+import {
+  useFetchFeedbackDataQuery,
+  useFetchUserHistoryDataQuery,
+} from "../state/api";
 
 // type Props = {};
 
@@ -45,20 +46,43 @@ const gridTemplateSmallScreens = `
 const Dashboard = () => {
   const isAboveMediumScreens = useMediaQuery("(min-width: 1200px)");
 
-  const dispatch = useDispatch();
+  // Use the generated API hooks for fetching user data and feedback data
+  const {
+    data: feedbackData,
+    isSuccess: feedbackSuccess,
+    isLoading: feedbackLoading,
+    isError: feedbackError,
+    error: feedbackErr,
+  } = useFetchFeedbackDataQuery();
+
+  const {
+    data: userData,
+    isSuccess: userSuccess,
+    isLoading: userLoading,
+    isError: userError,
+    error: userErr,
+  } = useFetchUserHistoryDataQuery();
+
+  // You can simply handle logging or other side effects here, but no need to dispatch the data
+  useEffect(() => {
+    if (userSuccess) {
+      console.log("User data fetch was successful");
+    } else if (userLoading) {
+      console.log("User data fetch is loading");
+    } else if (userError) {
+      console.error("User data fetch failed with error: ", userErr);
+    }
+  }, [userSuccess, userLoading, userError, userErr]);
 
   useEffect(() => {
-    if (mockUserData.data) {
-      dispatch(setUserData(mockUserData.data));
+    if (feedbackSuccess) {
+      console.log("Feedback data fetch was successful");
+    } else if (feedbackLoading) {
+      console.log("Feedback data fetch is loading");
+    } else if (feedbackError) {
+      console.error("Feedback data fetch failed with error: ", feedbackErr);
     }
-  }, [dispatch]);
-
-  // useEffect here to fetch user playlist data
-  useEffect(() => {
-    if (mockUserData.feedbackData) {
-      dispatch(setFeedbackData(mockUserData.feedbackData));
-    }
-  }, [dispatch]);
+  }, [feedbackSuccess, feedbackLoading, feedbackError, feedbackErr]);
 
   return (
     <Box

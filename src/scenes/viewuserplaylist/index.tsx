@@ -1,10 +1,9 @@
-import { useDispatch, useSelector } from "react-redux";
-import { mockUserData } from "../dashboard/mockdata/mockdata";
-import { selectTargetUserPlaylists, setUserData } from "../state/apiSlice";
-import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { selectTargetUserPlaylists } from "../state/apiSlice";
 import { Box, useMediaQuery } from "@mui/material";
 import UserPlayListCard from "@/components/UserPlaylistCard";
 import { UserHistoryData } from "../state/types";
+import { useFetchUserHistoryDataQuery } from "../state/api";
 
 // manually set "grid" representing rows for layout (non-responsive)
 const gridTemplateLargeScreens = `
@@ -25,17 +24,10 @@ const gridTemplateSmallScreens = `
 const ViewUserPlaylist = () => {
   const isAboveMediumScreens = useMediaQuery("(min-width: 1200px)");
 
-  const dispatch = useDispatch();
-
-  // useEffect here to fetch user playlist data
-  useEffect(() => {
-    if (mockUserData.data) {
-      dispatch(setUserData(mockUserData.data));
-    }
-  }, [dispatch]);
+  // Use the generated hook from RTK Query
+  useFetchUserHistoryDataQuery();
 
   const targetUser = useSelector(selectTargetUserPlaylists);
-
   return (
     <Box
       width="100%"

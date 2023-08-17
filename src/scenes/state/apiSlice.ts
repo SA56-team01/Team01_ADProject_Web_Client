@@ -1,43 +1,37 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { RootState } from "@/RootState"; // Import the RootState type
-import { ApiState, UserFeedbackData, UserHistoryPlaylistData } from "./types";
+import { RootState } from "@/RootState";
 import { createSelector } from "reselect";
+import { UserHistoryData } from "./types";
+import { api } from "./api";
 
-const initialState: ApiState = {
-  data: [], // Update to use an empty array for data
-  feedbackData: [], // Update to use an empty array for feedbackData
-  loading: true,
-};
+// RTK Query's auto-generated selectors
+const selectUserHistoryData = api.endpoints.fetchUserHistoryData.select();
+const selectUserFeedbackData = api.endpoints.fetchFeedbackData.select();
 
-const apiSlice = createSlice({
-  name: "api",
-  initialState,
-  reducers: {
-    setUserData: (state, action: PayloadAction<UserHistoryPlaylistData>) => {
-      // Update payload type
-      state.data = action.payload;
-      state.loading = false;
-    },
-    setFeedbackData: (state, action: PayloadAction<UserFeedbackData>) => {
-      // Update payload type
-      state.feedbackData = action.payload;
-      state.loading = false;
-    },
-  },
-});
+// look into why the raw selector is needed
+// Input selector for the raw user history data
+const rawUserHistorySelector = (state: RootState) =>
+  selectUserHistoryData(state).data;
 
-// select store
-export const selectUserData = (state: RootState) => state.api.data;
+// Memoized selector for user data
+export const selectUserData = createSelector(
+  [rawUserHistorySelector],
+  (userData) => userData || []
+);
 
-// selectUserPlaylistCountStats
+// Input selector for the raw feedback data
+const rawFeedbackSelector = (state: RootState) =>
+  selectUserFeedbackData(state).data;
+
+// Memoized selector for user feedback
+export const selectUserFeedback = createSelector(
+  [rawFeedbackSelector],
+  (feedback) => feedback || []
+);
+
 export const selectUserStats = createSelector([selectUserData], (userData) => {
-  if (!userData) {
-    return [];
-  }
-
   const userStatsMap: Record<string, number> = {};
 
-  userData.forEach((playlist) => {
+  userData.forEach((playlist: UserHistoryData) => {
     const userId = playlist.user_id.toString();
     if (!userStatsMap[userId]) {
       userStatsMap[userId] = 0;
@@ -53,90 +47,37 @@ export const selectUserStats = createSelector([selectUserData], (userData) => {
   return userStats;
 });
 
-// selectTargetUserPlaylistAttributes
-// testing with hardcoding user1 first
 export const selectTargetUserPlaylists = createSelector(
-  [selectUserData], // The input selector
+  [selectUserData],
   (userData) => {
-    // The result function
-    if (!userData) {
-      return [];
-    }
-
     const targetUserId = 6;
-    return userData.filter((playlist) => playlist.user_id === targetUserId);
+    return userData.filter(
+      (playlist: UserHistoryData) => playlist.user_id === targetUserId
+    );
   }
 );
 
-// uncomment when search function is done
-
-// const makeSelectTargetUserPlaylists = () => {
-//   return createSelector([selectUserData], (userData, targetUserId) => {
-//     if (!userData) {
-//       return [];
-//     }
-//     return userData.filter((playlist) => playlist.user_id === targetUserId);
-//   });
-// };
-
-// selectUserFeedback
-export const selectUserFeedback = (state: RootState) => {
-  const feedbackData = state.api.feedbackData;
-
-  if (!feedbackData) {
-    return [];
-  }
-
-  // const filteredFeedback = feedbackData.filter((feedback) => {
-  //   // conditional search for feedbackData
-  //   // if you want to filter out feedback with a rating less than 3:
-  //   return feedback.rating >= 3;
-  // });
-
-  return feedbackData;
-};
-
-// selectPlaylistGeneratedInLastYear
-// selectPlaylistGeneratedInLastYear
 export const selectPlaylistGeneratedInLastYear = createSelector(
-  [selectUserData], // The input selector
+  [selectUserData],
   (userData) => {
-    // The result function
-    if (!userData) {
-      return [];
-    }
-
     const oneYearAgo = new Date();
     oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
 
-    return userData.filter((playlist) => {
-      // Convert the timestamp to a Date object for comparison
+    return userData.filter((playlist: UserHistoryData) => {
       const playlistDate = new Date(playlist.timestamp_created);
-
-      // Return true if the playlist's creation date is after the oneYearAgo date
       return playlistDate > oneYearAgo;
     });
   }
 );
 
-// selectUserPlaylistGeneratedLocations
-
-// selectUserPlaylistTimestamps
 export const selectPlaylistTimestamps = createSelector(
-  [selectUserData], // The input selector
+  [selectUserData],
   (userData) => {
-    // The result function
-    if (!userData) {
-      return [];
-    }
-    return userData.map((playlist) => playlist.timestamp_created);
+    return userData.map(
+      (playlist: UserHistoryData) => playlist.timestamp_created
+    );
   }
 );
 
-// Filter function
-// selectUser1Playlist
-
-export const selectIsLoading = (state: RootState) => state.api.loading;
-
-export const { setUserData, setFeedbackData } = apiSlice.actions;
-export const { actions: apiActions, reducer: apiReducer } = apiSlice;
+// As you've noted, with RTK Query, you'd typically also have query hooks
+// available for use directly in your components.

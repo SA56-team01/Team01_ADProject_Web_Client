@@ -40,7 +40,7 @@ export interface UserHistoryPlaylistData extends Array<UserHistoryData> {}
 
 // Feedback data type
 export interface FeedbackData {
-  feedback_id: number;
+  id: number;
   user_id: number; // Foreign Key
   feedback_text: string;
   fb_timestamp: string; // Assuming fb_timestamp is a string

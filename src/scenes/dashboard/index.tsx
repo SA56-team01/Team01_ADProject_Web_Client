@@ -48,7 +48,6 @@ const Dashboard = () => {
 
   // Use the generated API hooks for fetching user data and feedback data
   const {
-    data: feedbackData,
     isSuccess: feedbackSuccess,
     isLoading: feedbackLoading,
     isError: feedbackError,
@@ -56,7 +55,6 @@ const Dashboard = () => {
   } = useFetchFeedbackDataQuery();
 
   const {
-    data: userData,
     isSuccess: userSuccess,
     isLoading: userLoading,
     isError: userError,

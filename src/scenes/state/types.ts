@@ -2,22 +2,26 @@
 
 // response type for Api response
 export interface UserHistoryData {
-  playlist_id: number;
-  user_id: number;
-  spotify_playlist_id: string;
-  playlist_name: string;
-  latitude_created: number;
-  longitude_created: number;
-  timestamp_created: string; // Assuming timestamp_created is a string
-  seed_tracks: string[]; // Assuming seed_tracks is an array of strings
-  target_danceability: number;
-  target_energy: number;
-  target_loudness: number;
-  target_speechiness: number;
-  target_acousticness: number;
-  target_liveness: number;
-  target_valence: number;
-  target_tempo: number;
+  id: number;
+  playlistName: string;
+  spotifyPlaylistId: string;
+  timestamp: string;
+  longitude: number;
+  latitude: number;
+  seedTracks: string;
+  targetAcousticness: number;
+  targetDanceability: number;
+  targetEnergy: number;
+  targetInstrumentalness: number;
+  targetKey: number;
+  targetLiveness: number;
+  targetLoudness: number;
+  targetMode: number;
+  targetSpeechiness: number;
+  targetTempo: number;
+  targetTimeSignature: number;
+  targetValence: number;
+  type: string; // Use a more specific type if you know the structure of playlistSongs
 }
 
 export interface UserPlaylistData {

@@ -64,7 +64,7 @@ const Row1 = () => {
   });
 
   boxBStats.forEach((playlist: UserHistoryData) => {
-    const date = new Date(playlist.timestamp_created);
+    const date = new Date(playlist.timestamp);
     const diffMonth =
       date.getMonth() + date.getFullYear() * 12 - (startMonth + 12 * startYear);
     if (diffMonth >= 0 && diffMonth < 12) {

@@ -8,7 +8,7 @@ import UserPlaylistDotMap from "./DotMap";
 
 const Row2 = () => {
   const { palette } = useTheme();
-  const boxEStats = useSelector(selectUserFeedback).map((feedback) => ({
+  const boxDStats = useSelector(selectUserFeedback).map((feedback) => ({
     ...feedback,
     id: feedback.id,
   }));
@@ -37,7 +37,7 @@ const Row2 = () => {
         <BoxHeader
           title="Feedback Overview"
           subtitle="Table overview of user feedback"
-          sideText={`${boxEStats?.length}` + " user feedback"}
+          sideText={`${boxDStats?.length}` + " user feedback"}
         />
         <Box
           mt="0.5 rem"
@@ -63,7 +63,7 @@ const Row2 = () => {
             columnHeaderHeight={25}
             getRowHeight={() => "auto"}
             hideFooter={true}
-            rows={boxEStats || []}
+            rows={boxDStats || []}
             columns={feedbackColumns}
           />
         </Box>

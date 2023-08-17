@@ -52,20 +52,21 @@ const ViewUserPlaylist = () => {
       {targetUser &&
         targetUser.map((playlistData: UserHistoryData) => (
           <UserPlayListCard
-            key={playlistData.playlist_id}
-            user_id={playlistData.user_id}
-            playlist_id={playlistData.playlist_id}
-            latitude_created={playlistData.latitude_created}
-            longitude_created={playlistData.longitude_created}
-            timestamp_created={playlistData.timestamp_created}
-            target_acousticness={playlistData.target_acousticness}
-            target_danceability={playlistData.target_danceability}
-            target_energy={playlistData.target_energy}
-            target_liveness={playlistData.target_liveness}
-            target_loudness={playlistData.target_loudness}
-            target_speechiness={playlistData.target_speechiness}
-            target_tempo={playlistData.target_tempo}
-            target_valence={playlistData.target_valence}
+            key={playlistData.id}
+            // TO-DO: CHANGE THIS LATER
+            user_id={playlistData.id}
+            playlist_id={playlistData.id}
+            latitude_created={playlistData.latitude}
+            longitude_created={playlistData.longitude}
+            timestamp_created={playlistData.timestamp}
+            target_acousticness={playlistData.targetAcousticness}
+            target_danceability={playlistData.targetDanceability}
+            target_energy={playlistData.targetEnergy}
+            target_liveness={playlistData.targetLiveness}
+            target_loudness={playlistData.targetLoudness}
+            target_speechiness={playlistData.targetSpeechiness}
+            target_tempo={playlistData.targetTempo}
+            target_valence={playlistData.targetValence}
           />
         ))}
     </Box>

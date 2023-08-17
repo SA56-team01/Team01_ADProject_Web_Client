@@ -28,11 +28,14 @@ export const selectUserFeedback = createSelector(
   (feedback) => feedback || []
 );
 
+// TO-DO: CHANGE ALL REFERENCES TO PLAYLIST.ID TO PLAYLIST.USER_ID
+// AFTER JAVA API SIDE UPDATES
+
 export const selectUserStats = createSelector([selectUserData], (userData) => {
   const userStatsMap: Record<string, number> = {};
 
   userData.forEach((playlist: UserHistoryData) => {
-    const userId = playlist.user_id.toString();
+    const userId = playlist.id.toString();
     if (!userStatsMap[userId]) {
       userStatsMap[userId] = 0;
     }
@@ -50,9 +53,9 @@ export const selectUserStats = createSelector([selectUserData], (userData) => {
 export const selectTargetUserPlaylists = createSelector(
   [selectUserData],
   (userData) => {
-    const targetUserId = 6;
+    const targetUserId = 45;
     return userData.filter(
-      (playlist: UserHistoryData) => playlist.user_id === targetUserId
+      (playlist: UserHistoryData) => playlist.id === targetUserId
     );
   }
 );
@@ -64,7 +67,7 @@ export const selectPlaylistGeneratedInLastYear = createSelector(
     oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
 
     return userData.filter((playlist: UserHistoryData) => {
-      const playlistDate = new Date(playlist.timestamp_created);
+      const playlistDate = new Date(playlist.timestamp);
       return playlistDate > oneYearAgo;
     });
   }
@@ -73,9 +76,7 @@ export const selectPlaylistGeneratedInLastYear = createSelector(
 export const selectPlaylistTimestamps = createSelector(
   [selectUserData],
   (userData) => {
-    return userData.map(
-      (playlist: UserHistoryData) => playlist.timestamp_created
-    );
+    return userData.map((playlist: UserHistoryData) => playlist.timestamp);
   }
 );
 

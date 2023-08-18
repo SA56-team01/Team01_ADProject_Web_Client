@@ -3,14 +3,34 @@ import DashboardBox from "@/components/DashboardBox";
 import { Box, Stack, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { useSelector } from "react-redux";
-import { selectUserFeedback } from "../state/apiSlice";
+import { selectUserFeedback, selectUserProfiles } from "../state/apiSlice";
 import { GridValueGetterParams } from "@mui/x-data-grid";
+import { User } from "../state/types";
+import { Cell, Legend, Pie, PieChart } from "recharts";
 
 const Row2 = () => {
   const { palette } = useTheme();
   const boxDStats = useSelector(selectUserFeedback).map((feedback) => ({
     ...feedback,
     id: feedback.feedback_id,
+  }));
+
+  const COLORS = [palette.primary[300]];
+
+  const userProfileData = useSelector(selectUserProfiles);
+
+  const userMarketCounts: Record<string, number> = {};
+
+  userProfileData.forEach((user: User) => {
+    if (!userMarketCounts[user.userMarket]) {
+      userMarketCounts[user.userMarket] = 0;
+    }
+    userMarketCounts[user.userMarket]++;
+  });
+
+  const userMarketPieData = Object.keys(userMarketCounts).map((market) => ({
+    name: market,
+    value: userMarketCounts[market],
   }));
 
   function formatDate(timestamp: string): string {
@@ -87,10 +107,30 @@ const Row2 = () => {
       </DashboardBox>
       <DashboardBox gridArea="e">
         <BoxHeader
-          title="Placeholder Box"
-          subtitle="Table overview of user feedback"
-          sideText={`${boxDStats?.length}` + " user feedback"}
+          title="User Market Distribution"
+          subtitle="Pie chart showing distribution of users by market"
+          sideText={`${userProfileData?.length}` + " users"}
         />
+        <PieChart width={400} height={400}>
+          <Pie
+            dataKey="value"
+            isAnimationActive={false}
+            data={userMarketPieData}
+            cx={200}
+            cy={200}
+            outerRadius={80}
+            fill="#8884d8"
+            stroke={palette.primary[500]}
+          >
+            {userMarketPieData.map((_, index) => (
+              <Cell
+                key={`cell-${index}`}
+                fill={COLORS[index % COLORS.length]}
+              />
+            ))}
+          </Pie>
+          <Legend />
+        </PieChart>
       </DashboardBox>
     </>
   );

@@ -57,8 +57,18 @@ export interface UserFeedbackData extends Array<FeedbackData> {}
 export interface ApiState {
   data?: UserHistoryPlaylistData;
   feedbackData?: UserFeedbackData;
+  userData?: UserData;
   loading: boolean;
 }
+
+export interface User {
+  userId: number;
+  spotifyUserId: string;
+  userMarket: string;
+  userEmail: string;
+}
+
+export interface UserData extends Array<User> {}
 
 export type RootState = {
   api: ApiState;

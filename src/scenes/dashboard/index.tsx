@@ -3,6 +3,7 @@ import Row1 from "./Row1";
 import Row2 from "./Row2";
 import { useEffect } from "react";
 import {
+  useFetchAllUsersQuery,
   useFetchFeedbackDataQuery,
   useFetchUserHistoryDataQuery,
 } from "../state/api";
@@ -14,13 +15,13 @@ const gridTemplateLargeScreens = `
   "a b c"
   "a b c"
   "a b c"
-  "a e e"
-  "d e e"
-  "d e e"
-  "d e e"
-  "d e e"
-  "d e e"
-  "d e e"
+  "a b c"
+  "e d d"
+  "e d d"
+  "e d d"
+  "e d d"
+  "e d d"
+  "e d d"
 `;
 
 // responsive layout
@@ -61,6 +62,13 @@ const Dashboard = () => {
     error: userErr,
   } = useFetchUserHistoryDataQuery();
 
+  const {
+    isSuccess: userProfileSuccess,
+    isLoading: userProfileLoading,
+    isError: userProfileError,
+    error: userProfileErr,
+  } = useFetchAllUsersQuery();
+
   // You can simply handle logging or other side effects here, but no need to dispatch the data
   useEffect(() => {
     if (userSuccess) {
@@ -81,6 +89,21 @@ const Dashboard = () => {
       console.error("Feedback data fetch failed with error: ", feedbackErr);
     }
   }, [feedbackSuccess, feedbackLoading, feedbackError, feedbackErr]);
+
+  useEffect(() => {
+    if (userProfileSuccess) {
+      console.log("User profile fetch was successful");
+    } else if (userProfileLoading) {
+      console.log("User profile fetch is loading");
+    } else if (userProfileError) {
+      console.error("User profile fetch failed with error: ", userProfileErr);
+    }
+  }, [
+    userProfileSuccess,
+    userProfileLoading,
+    userProfileError,
+    userProfileErr,
+  ]);
 
   return (
     <Box

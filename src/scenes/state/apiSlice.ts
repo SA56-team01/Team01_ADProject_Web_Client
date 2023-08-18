@@ -6,6 +6,7 @@ import { api } from "./api";
 // RTK Query's auto-generated selectors
 const selectUserHistoryData = api.endpoints.fetchUserHistoryData.select();
 const selectUserFeedbackData = api.endpoints.fetchFeedbackData.select();
+const selectUserProfileData = api.endpoints.fetchAllUsers.select();
 
 // look into why the raw selector is needed
 // Input selector for the raw user history data
@@ -26,6 +27,14 @@ const rawFeedbackSelector = (state: RootState) =>
 export const selectUserFeedback = createSelector(
   [rawFeedbackSelector],
   (feedback) => feedback || []
+);
+
+const rawUserProfileSelector = (state: RootState) =>
+  selectUserProfileData(state).data;
+
+export const selectUserProfiles = createSelector(
+  [rawUserProfileSelector],
+  (userProfile) => userProfile || []
 );
 
 // TO-DO: CHANGE ALL REFERENCES TO PLAYLIST.ID TO PLAYLIST.USER_ID

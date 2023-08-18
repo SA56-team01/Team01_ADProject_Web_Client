@@ -8,8 +8,6 @@ import {
   useFetchUserHistoryDataQuery,
 } from "../state/api";
 
-// type Props = {};
-
 // manually set "grid" representing rows for layout (non-responsive)
 const gridTemplateLargeScreens = `
   "a b c"
@@ -32,14 +30,19 @@ const gridTemplateSmallScreens = `
   "a"
   "b"
   "b"
+  "b"
+  "b"
   "c"
   "c"
   "c"
+  "c"
   "d"
   "d"
   "d"
   "d"
   "d"
+  "e"
+  "e"
   "e"
   "e"
 `;

@@ -50,7 +50,7 @@ export const selectUserStats = createSelector([selectUserData], (userData) => {
   const userStatsMap: Record<string, number> = {};
 
   userData.forEach((playlist: UserHistoryData) => {
-    const userId = playlist.id.toString();
+    const userId = playlist.userId.toString();
     if (!userStatsMap[userId]) {
       userStatsMap[userId] = 0;
     }
@@ -74,7 +74,7 @@ export const selectTargetUserPlaylists = createSelector(
 
     const targetUserId = parseInt(userIdInput, 10);
     return userData.filter(
-      (playlist: UserHistoryData) => playlist.id === targetUserId
+      (playlist: UserHistoryData) => playlist.userId === targetUserId
     );
   }
 );

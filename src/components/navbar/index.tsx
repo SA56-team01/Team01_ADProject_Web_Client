@@ -1,14 +1,9 @@
-// import { useState } from "react";
-// import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import PixIcon from "@mui/icons-material/Pix";
 import { Typography, useTheme } from "@mui/material";
 import FlexBetween from "../FlexBetween";
-// import { setLogout } from "@/scenes/state/authSlice";
 import NavbarRight from "./navbarRight";
 import { RootState } from "@/RootState";
-
-// type Props = {};
 
 const Navbar = () => {
   // refactored right side of navbar into separate component

@@ -23,6 +23,7 @@ export interface UserHistoryData {
   targetTimeSignature: number;
   targetValence: number;
   type: string; // Use a more specific type if you know the structure of playlistSongs
+  userId: number;
 }
 
 export interface UserHistoryPlaylistData extends Array<UserHistoryData> {}

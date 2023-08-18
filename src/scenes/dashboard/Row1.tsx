@@ -157,7 +157,6 @@ const Row1 = () => {
               domain={[0, maxPlaylistCount]}
             />
             <Tooltip />
-            {/* edit for when you change to our own data */}
             {/* First Graph */}
             <Area
               type="monotone"

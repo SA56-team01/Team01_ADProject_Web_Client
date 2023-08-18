@@ -56,7 +56,7 @@ const ViewUserPlaylist = () => {
             <UserPlayListCard
               key={playlistData.id}
               // TO-DO: CHANGE THIS LATER
-              user_id={playlistData.id}
+              user_id={playlistData.userId}
               playlist_id={playlistData.id}
               latitude_created={playlistData.latitude}
               longitude_created={playlistData.longitude}

@@ -13,6 +13,12 @@ const selectUserProfileData = api.endpoints.fetchAllUsers.select();
 const rawUserHistorySelector = (state: RootState) =>
   selectUserHistoryData(state).data;
 
+// Memoized selector to transform this data into the `coordinates` format
+export const selectFullUserHistoryData = createSelector(
+  [rawUserHistorySelector],
+  (userHistoryData) => userHistoryData || []
+);
+
 // Memoized selector for user data
 export const selectUserData = createSelector(
   [rawUserHistorySelector],

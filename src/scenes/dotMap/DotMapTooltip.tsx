@@ -12,8 +12,8 @@ const DotMapTooltip: FC<TooltipProps> = ({ content, x, y }) => (
       position: "absolute",
       top: `${y}px`,
       left: `${x}px`,
-      background: "#0000FF",
-      border: "1px solid #0000FF",
+      background: "#1ed760",
+      border: "1px solid #1DB954",
       padding: "5px",
       borderRadius: "3px",
       pointerEvents: "none", // So that it doesn't interfere with map interactions.

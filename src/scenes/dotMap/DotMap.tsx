@@ -8,25 +8,21 @@ import {
   Marker,
 } from "react-simple-maps";
 import DotMapTooltip from "./DotMapTooltip";
+import { selectFullUserHistoryData } from "../state/apiSlice";
+import { useSelector } from "react-redux";
 
 const SingaporePlaylistDotMap = () => {
-  const coordinates = [
-    [103.851959, 1.29027], // Downtown Singapore
-    [103.817255, 1.280095], // Sentosa
+  // Inside SingaporePlaylistDotMap component
 
-    [103.834441, 1.290756], // Chinatown
-    [103.845436, 1.299617], // Bugis
-    [103.876591, 1.311495], // Geylang
-    [103.847502, 1.308108], // Little India
-    [103.848958, 1.28251], // Clarke Quay
-    [103.876383, 1.355149], // Tampines
-    [103.902704, 1.311312], // Bedok
-    [103.838217, 1.319725], // Orchard Road
-    [103.774083, 1.292929], // HarbourFront
-    [103.793381, 1.443708], // Woodlands
+  const userHistoryData = useSelector(selectFullUserHistoryData);
+  const coordinates = userHistoryData
+    ? userHistoryData.map((data) => [data.longitude, data.latitude])
+    : [];
 
-    // ... other coordinates
-  ];
+  // Calculate the count of playlists
+  const playlistCount = coordinates.length;
+
+  console.log(coordinates);
 
   const geoUrl = "/data/sg.topojson";
   const [tooltipContent, setTooltipContent] = useState<string | null>(null);
@@ -46,13 +42,13 @@ const SingaporePlaylistDotMap = () => {
       <BoxHeader
         title="Map of Playlists Generated"
         subtitle="Playlists Generated in Singapore by Location"
-        sideText="+4%"
+        sideText={`${playlistCount} Playlists Generated`}
       />
 
       <ComposableMap
         projection="geoMercator"
         projectionConfig={{
-          scale: 90000,
+          scale: 80000,
           center: [103.8198, 1.3],
         }}
         style={{ width: "100%", height: "100%" }}
@@ -79,9 +75,9 @@ const SingaporePlaylistDotMap = () => {
               r={3}
               fill="#F53"
               onClick={(event) => {
-                // On marker click, set the tooltip content and position
+                const data = userHistoryData[index];
                 setTooltipContent(
-                  `Longitude: ${longitude}, Latitude: ${latitude}`
+                  `Playlist: ${data.playlistName}, Timestamp: ${data.timestamp}, Longitude: ${longitude}, Latitude: ${latitude}`
                 );
                 setTooltipPosition({ x: event.clientX, y: event.clientY });
               }}

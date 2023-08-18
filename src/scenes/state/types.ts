@@ -25,22 +25,6 @@ export interface UserHistoryData {
   type: string; // Use a more specific type if you know the structure of playlistSongs
 }
 
-export interface UserPlaylistData {
-  playlist_id: number;
-  user_id: number;
-  latitude_created: number;
-  longitude_created: number;
-  timestamp_created: string; // Assuming timestamp_created is a string
-  target_acousticness: number;
-  target_danceability: number;
-  target_energy: number;
-  target_liveness: number;
-  target_loudness: number;
-  target_speechiness: number;
-  target_valence: number;
-  target_tempo: number;
-}
-
 export interface UserHistoryPlaylistData extends Array<UserHistoryData> {}
 
 // Feedback data type

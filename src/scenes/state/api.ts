@@ -13,11 +13,11 @@ export const api = createApi({
   endpoints: (builder) => ({
     // Fetch user history data
     fetchUserHistoryData: builder.query<UserHistoryPlaylistData, void>({
-      query: () => "/api/playlists/all", // adjust this endpoint path as needed
+      query: () => "/api/playlists/allPlaylists", // adjust this endpoint path as needed
     }),
     // Fetch feedback data
     fetchFeedbackData: builder.query<UserFeedbackData, void>({
-      query: () => "/api/feedback/data", // adjust this endpoint path as needed
+      query: () => "api/feedback/allFeedback", // adjust this endpoint path as needed
     }),
   }),
 });

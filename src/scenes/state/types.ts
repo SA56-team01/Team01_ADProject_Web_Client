@@ -1,6 +1,7 @@
 // defining types
 
 // response type for Api response
+// UPDATE after user_id comes in
 export interface UserHistoryData {
   id: number;
   playlistName: string;
@@ -44,7 +45,7 @@ export interface UserHistoryPlaylistData extends Array<UserHistoryData> {}
 
 // Feedback data type
 export interface FeedbackData {
-  id: number;
+  feedback_id: number;
   user_id: number; // Foreign Key
   feedback_text: string;
   fb_timestamp: string; // Assuming fb_timestamp is a string

@@ -30,7 +30,20 @@ const NavbarRight = () => {
           dashboard
         </Link>
       </Box>
-      {/* playlist data/alt segment for the navbar */}
+      {/* map segment for the navbar */}
+      <Box sx={{ "&:hover": { color: palette.primary[100] } }}>
+        <Link
+          to="/viewmap"
+          onClick={() => setSelected("map")}
+          style={{
+            color: selected === "map" ? "inherit" : palette.grey[700],
+            textDecoration: "inherit",
+          }}
+        >
+          map
+        </Link>
+      </Box>
+      {/* playlist data segment for the navbar */}
       <Box sx={{ "&:hover": { color: palette.primary[100] } }}>
         <Link
           to="/viewplaylist"

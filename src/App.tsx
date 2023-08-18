@@ -9,6 +9,7 @@ import LoginPage from "./scenes/login/login";
 import ViewUserPlaylist from "./scenes/viewuserplaylist";
 import { useSelector } from "react-redux";
 import { RootState } from "./RootState";
+import ViewMap from "./scenes/dotMap";
 
 function App() {
   const theme = useMemo(() => createTheme(themeSettings), []);
@@ -38,6 +39,10 @@ function App() {
               element={
                 isAuth ? <ViewUserPlaylist /> : <Navigate to="/"></Navigate>
               }
+            />
+            <Route
+              path="/viewmap"
+              element={isAuth ? <ViewMap /> : <Navigate to="/"></Navigate>}
             />
             <Route path="/login" element={<LoginPage />} />
           </Routes>

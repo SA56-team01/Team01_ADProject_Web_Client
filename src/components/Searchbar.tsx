@@ -1,27 +1,46 @@
-import { Container, InputAdornment, TextField } from "@mui/material";
-import { useState } from "react";
+import { Container, InputAdornment, TextField, useTheme } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
-export default function SearchBar() {
-  const [searchTerm, setSearchTerm] = useState("");
+type SearchBarProps = {
+  value: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+};
 
-  const handleChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
-
+export default function SearchBar({ value, onChange }: SearchBarProps) {
+  const { palette } = useTheme();
   return (
-    <Container maxWidth="md" sx={{ mt: 20 }}>
+    <Container maxWidth="md" sx={{ mt: 2, mb: 5 }}>
       <TextField
         id="search"
         type="search"
-        label="Search"
-        value={searchTerm}
-        onChange={handleChange}
-        sx={{ width: 600 }}
+        label="Filter by User Id"
+        value={value}
+        onChange={onChange}
+        sx={{
+          width: 600,
+          "& label": {
+            color: palette.primary[100], // Color of the label (when not focused)
+          },
+          "& label.Mui-focused": {
+            color: palette.primary[100], // Color of the label when focused
+          },
+          "& .MuiInputBase-input": {
+            color: palette.primary[100], // Color of the input text
+          },
+          "& .MuiInputBase-input::placeholder": {
+            color: palette.primary[100], // Color of the placeholder text
+          },
+          "& .MuiOutlinedInput-notchedOutline": {
+            borderColor: palette.primary[100], // Border color
+          },
+          "&:hover .MuiOutlinedInput-notchedOutline": {
+            borderColor: palette.primary[100], // Hover state border color
+          },
+        }}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
-              <SearchIcon />
+              <SearchIcon sx={{ color: palette.primary[100] }} />
             </InputAdornment>
           ),
         }}

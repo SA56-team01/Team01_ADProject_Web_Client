@@ -51,9 +51,13 @@ export const selectUserStats = createSelector([selectUserData], (userData) => {
 });
 
 export const selectTargetUserPlaylists = createSelector(
-  [selectUserData],
-  (userData) => {
-    const targetUserId = 45;
+  [selectUserData, (_, userIdInput) => userIdInput],
+  (userData, userIdInput) => {
+    if (!userIdInput) {
+      return userData; // return all data if no userId is input
+    }
+
+    const targetUserId = parseInt(userIdInput, 10);
     return userData.filter(
       (playlist: UserHistoryData) => playlist.id === targetUserId
     );

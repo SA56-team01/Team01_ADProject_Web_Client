@@ -57,7 +57,13 @@ const UserPlayListCard = ({
   ];
 
   return (
-    <DashboardBox style={{ display: "grid", gridTemplateRows: "auto 1fr" }}>
+    <DashboardBox
+      style={{
+        display: "grid",
+        gridTemplateRows: "auto 1fr",
+        maxHeight: "420px",
+      }}
+    >
       <UserPlayListCardHeader
         user_id={user_id}
         playlist_id={playlist_id}
@@ -79,7 +85,12 @@ const UserPlayListCard = ({
         >
           <PolarGrid />
           <PolarAngleAxis dataKey="track_attribute" />
-          <PolarRadiusAxis domain={[0, 1]} />
+          <PolarRadiusAxis
+            domain={[0, 1]}
+            angle={45}
+            orientation="right"
+            tick={{ dy: 5, dx: 10 }}
+          />
           <Radar
             name={"User Playlist Chart"}
             dataKey="value"

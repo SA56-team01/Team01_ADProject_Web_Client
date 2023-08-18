@@ -9,6 +9,13 @@ type Props = {
   icon?: React.ReactNode;
 };
 
+const formatLocation = (loc: string) => {
+  return loc
+    .split(",")
+    .map((coord) => coord.trim().substring(0, 6))
+    .join(", ");
+};
+
 const UserPlayListCardHeader = ({
   user_id,
   playlist_id,
@@ -22,12 +29,18 @@ const UserPlayListCardHeader = ({
       <FlexBetween>
         {icon}
         <Box width="100%">
-          <Typography variant="h4" mb="-0.1rem">
+          <Typography variant="h3" mb="-0.1rem" color={palette.primary[100]}>
             User: {user_id}
           </Typography>
-          <Typography variant="h6">Playlist Id: {playlist_id}</Typography>
-          <Typography variant="h6">Location: {location}</Typography>
-          <Typography variant="h6">Timestamp: {timestamp}</Typography>
+          <Typography variant="h4" color={palette.primary[300]}>
+            Playlist Id: {playlist_id}
+          </Typography>
+          <Typography variant="h4" color={palette.primary[300]}>
+            Location: {formatLocation(location)}
+          </Typography>
+          <Typography variant="h4" color={palette.primary[300]}>
+            Timestamp: {timestamp}
+          </Typography>
         </Box>
       </FlexBetween>
     </FlexBetween>

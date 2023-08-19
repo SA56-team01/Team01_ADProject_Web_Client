@@ -2,17 +2,17 @@
 // is this akin to declaring a class?
 // ok you need to keep the import
 
-// eslint-disable-next-line
+// @ts-ignore
 import { Palette, PaletteColor } from "@mui/material/styles/createPalette";
 
 // declaring custom interfaces for mui
 declare module "@mui/material/styles/createPalette" {
-    interface PaletteColor {
-        [key: number]: string;
-    }
+  interface PaletteColor {
+    [key: number]: string;
+  }
 
-    interface Palette {
-        // include all ("primary", "secondary", "tertiary", "grey") ?
-        tertiary: PaletteColor;
-    }
+  interface Palette {
+    // include all ("primary", "secondary", "tertiary", "grey") ?
+    tertiary: PaletteColor;
+  }
 }

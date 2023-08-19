@@ -37,7 +37,7 @@ const LoginPage = () => {
           variant="h4"
           sx={{ mb: "1.5rem", color: palette.primary[100] }}
         >
-          Spotify Playlistener: Generating Data-Driven Playlists Since 2023.
+          Spotisan: Generating Data-Driven Playlists Since 2023.
         </Typography>
         <Form />
       </Box>

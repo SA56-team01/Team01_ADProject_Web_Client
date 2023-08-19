@@ -1,14 +1,15 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { UserData, UserFeedbackData, UserHistoryPlaylistData } from "./types";
+import { DEFAULT_BASE_URL } from "@/config/appConfig";
 
 // need to FIX, think about the logic for this
-console.log("VITE_JAVA_API_URL in api.ts:", import.meta.env.VITE_JAVA_API_URL);
+console.log("CURRENT HARDCODED VALUE FOR URL in api.ts:", DEFAULT_BASE_URL);
 
 // redux "hook" that handles my primary api call to get user data from java backend
 export const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: `${import.meta.env.VITE_JAVA_API_URL}`,
+    baseUrl: DEFAULT_BASE_URL,
   }),
   endpoints: (builder) => ({
     // Fetch user history data

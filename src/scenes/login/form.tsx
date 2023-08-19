@@ -12,7 +12,7 @@ import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { setLogin } from "../state/authSlice";
 import * as yup from "yup";
-import.meta.env.VITE_JAVA_API_URL;
+import { DEFAULT_BASE_URL } from "@/config/appConfig";
 
 const loginSchema = yup.object().shape({
   username: yup.string().required("required"),
@@ -39,7 +39,7 @@ const Form = () => {
     onSubmitProps: FormikHelpers<typeof initialValuesLogin>
   ) => {
     // call to backend to check user login credentials, amend depending on endpoint
-    const url = new URL(`${import.meta.env.VITE_JAVA_API_URL}/api/admin/auth`);
+    const url = new URL(`${DEFAULT_BASE_URL}/api/admin/auth`);
     url.searchParams.append("username", values.username);
     url.searchParams.append("password", values.password);
 

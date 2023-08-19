@@ -22,7 +22,7 @@ const Navbar = () => {
         {/* ICON HERE, fontSize = set icon size */}
         <PixIcon sx={{ fontSize: "28px" }} />
         <Typography variant="h4" fontSize="18px" color={palette.primary[500]}>
-          Spotify Playlistener
+          Spotisan
         </Typography>
       </FlexBetween>
       {/* RIGHT SIDE */}

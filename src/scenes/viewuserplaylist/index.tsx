@@ -58,6 +58,7 @@ const ViewUserPlaylist = () => {
               // TO-DO: CHANGE THIS LATER
               user_id={playlistData.userId}
               playlist_id={playlistData.id}
+              playlist_name={playlistData.playlistName}
               latitude_created={playlistData.latitude}
               longitude_created={playlistData.longitude}
               timestamp_created={playlistData.timestamp}

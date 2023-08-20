@@ -19,6 +19,7 @@ const DotMapTooltip: FC<TooltipProps> = ({ content, x, y }) => (
       pointerEvents: "none", // So that it doesn't interfere with map interactions.
       transform: "translate(-50%, -100%)", // Center the tooltip and position it above the marker.
       zIndex: 100000, // Adding z-index to ensure it's rendered above other elements
+      fontSize: "1.1rem",
     }}
   >
     {content}

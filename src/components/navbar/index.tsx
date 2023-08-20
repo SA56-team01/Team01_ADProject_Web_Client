@@ -1,5 +1,4 @@
 import { useSelector } from "react-redux";
-import PixIcon from "@mui/icons-material/Pix";
 import { Typography, useTheme } from "@mui/material";
 import FlexBetween from "../FlexBetween";
 import NavbarRight from "./navbarRight";
@@ -20,9 +19,9 @@ const Navbar = () => {
       {/* LEFT SIDE */}
       <FlexBetween gap="0.75rem">
         {/* ICON HERE, fontSize = set icon size */}
-        <PixIcon sx={{ fontSize: "28px" }} />
+        <img src="/logo.png" alt="Spotisan Logo" width="28" height="28" />
         <Typography variant="h4" fontSize="18px" color={palette.primary[500]}>
-          Spotify Playlistener
+          Spotisan
         </Typography>
       </FlexBetween>
       {/* RIGHT SIDE */}

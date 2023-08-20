@@ -30,7 +30,7 @@ const LoginPage = () => {
           color="primary"
           sx={{ mb: "0.75rem" }}
         >
-          Welcome Admin
+          Welcome, Admin
         </Typography>
         <Typography
           fontWeight="500"

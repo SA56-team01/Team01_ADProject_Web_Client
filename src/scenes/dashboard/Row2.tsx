@@ -63,7 +63,7 @@ const Row2 = () => {
         <BoxHeader
           title="Feedback Overview"
           subtitle="Table overview of user feedback"
-          sideText={`${boxDStats?.length}` + " user feedback"}
+          sideText={`${boxDStats?.length}` + " counts of feedback"}
         />
         <Box
           mt="0.5 rem"
@@ -76,9 +76,11 @@ const Row2 = () => {
             },
             "& .MuiDataGrid-cell": {
               borderBottom: `1px solid ${palette.grey[800]} !important`,
+              fontSize: "0.9rem", // Adjust the font size as needed
             },
             "& .MuiDataGrid-columnHeaders": {
               borderBottom: `1px solid ${palette.grey[800]} !important`,
+              fontSize: "0.9rem", // Adjust the font size as needed
             },
             "& .MuiDataGrid-columnSeparator": {
               visibility: "hidden",
@@ -111,26 +113,33 @@ const Row2 = () => {
           subtitle="Pie chart showing distribution of users by market"
           sideText={`${userProfileData?.length}` + " users"}
         />
-        <PieChart width={400} height={400}>
-          <Pie
-            dataKey="value"
-            isAnimationActive={false}
-            data={userMarketPieData}
-            cx={200}
-            cy={200}
-            outerRadius={80}
-            fill="#8884d8"
-            stroke={palette.primary[500]}
-          >
-            {userMarketPieData.map((_, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={COLORS[index % COLORS.length]}
-              />
-            ))}
-          </Pie>
-          <Legend />
-        </PieChart>
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          height="70%"
+        >
+          <PieChart width={500} height={500}>
+            <Pie
+              dataKey="value"
+              isAnimationActive={false}
+              data={userMarketPieData}
+              cx={250}
+              cy={250}
+              outerRadius={150}
+              fill="#8884d8"
+              stroke={palette.primary[500]}
+            >
+              {userMarketPieData.map((_, index) => (
+                <Cell
+                  key={`cell-${index}`}
+                  fill={COLORS[index % COLORS.length]}
+                />
+              ))}
+            </Pie>
+            <Legend />
+          </PieChart>
+        </Box>
       </DashboardBox>
     </>
   );

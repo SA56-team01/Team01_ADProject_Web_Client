@@ -13,6 +13,7 @@ import DashboardBox from "./DashboardBox";
 type Props = {
   user_id: number;
   playlist_id: number;
+  playlist_name: string;
   latitude_created: number;
   longitude_created: number;
   timestamp_created: string;
@@ -29,6 +30,7 @@ type Props = {
 const UserPlayListCard = ({
   user_id,
   playlist_id,
+  playlist_name,
   latitude_created,
   longitude_created,
   timestamp_created,
@@ -38,7 +40,7 @@ const UserPlayListCard = ({
   target_liveness,
   target_loudness,
   target_speechiness,
-  target_tempo,
+  // target_tempo,
   target_valence,
 }: Props) => {
   const location = `${latitude_created}, ${longitude_created}`;
@@ -52,7 +54,7 @@ const UserPlayListCard = ({
     { track_attribute: "Liveness", value: target_liveness },
     { track_attribute: "Loudness", value: target_loudness },
     { track_attribute: "Speechiness", value: target_speechiness },
-    { track_attribute: "Tempo", value: target_tempo },
+    // { track_attribute: "Tempo", value: target_tempo }, excluded because of range
     { track_attribute: "Valence", value: target_valence },
   ];
 
@@ -67,6 +69,7 @@ const UserPlayListCard = ({
       <UserPlayListCardHeader
         user_id={user_id}
         playlist_id={playlist_id}
+        playlist_name={playlist_name}
         location={location}
         timestamp={timestamp_created}
       />
@@ -87,7 +90,7 @@ const UserPlayListCard = ({
           <PolarAngleAxis dataKey="track_attribute" />
           <PolarRadiusAxis
             domain={[0, 1]}
-            angle={45}
+            angle={38.5714285714}
             orientation="right"
             tick={{ dy: 5, dx: 10 }}
           />

@@ -11,7 +11,7 @@ const ViewMap = () => {
   //   const targetUser = useSelector(selectTargetUserPlaylists);
 
   return (
-    <DashboardBox>
+    <DashboardBox style={{ height: "90vh", overflow: "hidden" }}>
       <SingaporePlaylistDotMap />
     </DashboardBox>
   );

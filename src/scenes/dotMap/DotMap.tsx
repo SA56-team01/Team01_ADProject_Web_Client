@@ -22,8 +22,6 @@ const SingaporePlaylistDotMap = () => {
   // Calculate the count of playlists
   const playlistCount = coordinates.length;
 
-  console.log(coordinates);
-
   const geoUrl = "/data/sg.topojson";
   const [tooltipContent, setTooltipContent] = useState<string | null>(null);
   const [tooltipPosition, setTooltipPosition] = useState<{
@@ -36,7 +34,8 @@ const SingaporePlaylistDotMap = () => {
     <DashboardBox
       style={{
         display: "grid",
-        gridTemplateRows: "auto 1fr",
+        height: "100%", // make sure it takes up the entire height of the parent container
+        overflow: "hidden", // prevent any potential spillover
       }}
     >
       <BoxHeader
@@ -48,8 +47,8 @@ const SingaporePlaylistDotMap = () => {
       <ComposableMap
         projection="geoMercator"
         projectionConfig={{
-          scale: 80000,
-          center: [103.8198, 1.3],
+          scale: 147000,
+          center: [103.8198, 1.359],
         }}
         style={{ width: "100%", height: "100%" }}
       >
@@ -61,9 +60,9 @@ const SingaporePlaylistDotMap = () => {
                 geography={geo}
                 tabIndex={-1}
                 style={{
-                  default: { fill: "#F8F8F8", outline: "none" },
-                  hover: { outline: "none" },
-                  pressed: { outline: "none" },
+                  default: { fill: "#ebebeb", outline: "none" },
+                  hover: { fill: "#ebebeb", outline: "none" },
+                  pressed: { fill: "#ebebeb", outline: "none" },
                 }}
               />
             ))
@@ -77,7 +76,13 @@ const SingaporePlaylistDotMap = () => {
               onClick={(event) => {
                 const data = userHistoryData[index];
                 setTooltipContent(
-                  `Playlist: ${data.playlistName}, Timestamp: ${data.timestamp}, Longitude: ${longitude}, Latitude: ${latitude}`
+                  `User Id: ${data.userId}, Playlist Id: ${
+                    data.id
+                  }, Playlist Name: ${data.playlistName}, Timestamp: ${
+                    data.timestamp
+                  }, Longitude: ${parseFloat(
+                    longitude.toFixed(4)
+                  )}, Latitude: ${parseFloat(latitude.toFixed(4))}`
                 );
                 setTooltipPosition({ x: event.clientX, y: event.clientY });
               }}

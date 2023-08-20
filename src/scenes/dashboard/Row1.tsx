@@ -42,8 +42,9 @@ const Row1 = () => {
   const boxAChartData = useMemo(
     () =>
       boxAStats.map((userStat) => ({
-        userId: userStat.userId,
+        userId: `User ID: ${userStat.userId}`, // Modified this
         playlistCount: userStat.playlistCount,
+        name: `User ID: ${userStat.userId}`, // Added this
       })),
     [boxAStats]
   );
@@ -100,8 +101,7 @@ const Row1 = () => {
       <DashboardBox gridArea="a">
         <BoxHeader
           title="Playlist Count by User"
-          subtitle="Playlist distribution number by User"
-          sideText="+4%"
+          subtitle="Playlist Distribution Number by User"
         />
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart
@@ -177,7 +177,6 @@ const Row1 = () => {
         <BoxHeader
           title="12-Month Playlist Generation Snapshot"
           subtitle="Monthly Trends in Playlist Creation Over the Last Year"
-          sideText="+4%"
         />
         <ResponsiveContainer>
           <BarChart
@@ -218,8 +217,7 @@ const Row1 = () => {
       <DashboardBox gridArea="c">
         <BoxHeader
           title="Playlist Generation Time"
-          subtitle="Distribution of times that user generated playlists"
-          sideText="+4%"
+          subtitle="Hourly Breakdown of Playlist Creation Times"
         />
         <ResponsiveContainer>
           <AreaChart
@@ -257,7 +255,10 @@ const Row1 = () => {
               // setting the range
               domain={[0, 2]}
             />
-            <Tooltip />
+            <Tooltip
+              labelFormatter={(label) => `${label}:00 - ${+label + 1}:00`}
+            />
+
             <Area
               type="monotone"
               dataKey="count"

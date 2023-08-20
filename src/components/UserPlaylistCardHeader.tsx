@@ -4,6 +4,7 @@ import FlexBetween from "./FlexBetween";
 type Props = {
   user_id: number;
   playlist_id: number;
+  playlist_name: string;
   location: string;
   timestamp: string;
   icon?: React.ReactNode;
@@ -19,6 +20,7 @@ const formatLocation = (loc: string) => {
 const UserPlayListCardHeader = ({
   user_id,
   playlist_id,
+  playlist_name,
   location,
   timestamp,
   icon,
@@ -34,6 +36,9 @@ const UserPlayListCardHeader = ({
           </Typography>
           <Typography variant="h4" color={palette.primary[300]}>
             Playlist Id: {playlist_id}
+          </Typography>
+          <Typography variant="h4" color={palette.primary[300]}>
+            Playlist Name: {playlist_name}
           </Typography>
           <Typography variant="h4" color={palette.primary[300]}>
             Location: {formatLocation(location)}
